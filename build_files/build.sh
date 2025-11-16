@@ -12,7 +12,10 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 
 # this installs a package from fedora repos
 dnf install -y fastfetch
-
+dnf install -y steam
+dnf install -y discord
+dnf install -y kitty
+dnf remove -y foot
 # Clean dnf cache and autoremove
 dnf clean all
 rm -rf /var/cache/dnf
