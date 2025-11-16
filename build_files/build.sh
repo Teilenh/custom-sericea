@@ -12,9 +12,11 @@ set -ouex pipefail
 # this installs a package from fedora repos
 dnf install -y fastfetch
 
-# Clean dnf cache 
+# Clean dnf cache and autoremove
 dnf clean all
 rm -rf /var/cache/dnf
+dnf autoremove -y
+rm -rf /var/log/* /tmp/* /var/tmp/*
 
 # Use a COPR Example:
 #
