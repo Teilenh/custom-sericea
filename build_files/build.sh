@@ -9,7 +9,7 @@ sudo dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-re
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-
+flatpak update -y
 # this installs a package from fedora repos
 PACKAGES=(
   fastfetch
@@ -28,9 +28,8 @@ dnf remove -y "${RM_PACKAGES[@]}"
 dnf install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
 # Clean dnf cache and autoremove
 dnf clean all
-rm -rf /var/cache/dnf
 dnf autoremove -y
-rm -rf /tmp/* /var/tmp/*
+
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf
 # Use a COPR Example:
 #
