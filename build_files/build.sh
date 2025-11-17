@@ -16,6 +16,10 @@ PACKAGES=(
   steam
   discord
   kitty
+  btop
+  gamemode
+  mpv
+  distrobox
 )
 RM_PACKAGES=(
   foot
@@ -27,7 +31,7 @@ dnf clean all
 rm -rf /var/cache/dnf
 dnf autoremove -y
 rm -rf /tmp/* /var/tmp/*
-
+flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf
 # Use a COPR Example:
 #
 #dnf5 -y copr enable ublue-os/staging
