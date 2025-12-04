@@ -20,6 +20,7 @@ PACKAGES=(
   gamemode
   mpv
   distrobox
+  wlogout
 )
 RM_PACKAGES=(
   foot
