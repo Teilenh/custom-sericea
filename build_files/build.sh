@@ -21,6 +21,8 @@ PACKAGES=(
   mpv
   distrobox
   wlogout
+  unzip
+  cabextract
 )
 RM_PACKAGES=(
   foot
