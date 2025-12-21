@@ -41,7 +41,7 @@ COPY --chmod=644 build_files/files/sway/15-colors.conf /usr/share/sway/config.d/
 COPY --chmod=644 build_files/files/sway/20-outputs.conf /usr/share/sway/config.d/20-outputs.conf
 COPY --chmod=644 build_files/files/sway/30-appearance.conf /usr/share/sway/config.d/30-appearance.conf
 COPY --chmod=644 build_files/files/sway/35-rules.conf /usr/share/sway/config.d/35-rules.conf
-COPY --chmod=644 build_files/files/sway/40.keybinds.conf /usr/share/sway/config.d/40.keybinds.conf
+COPY --chmod=644 build_files/files/sway/40-keybinds.conf /usr/share/sway/config.d/40-keybinds.conf
 COPY --chmod=644 build_files/files/sway/96-autostart.conf /usr/share/sway/config.d/96-autostart.conf
 
 ### LINTING
