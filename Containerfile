@@ -39,6 +39,7 @@ RUN rm -f /usr/share/sway/config.d/60-bindings-screenshot.conf
 RUN rm -f /usr/share/sway/config.d/60-bindings-brightness.conf
 RUN  rm -f /usr/share/sway/config.d/50-rules-policykit-agent.conf
 RUN  rm -f /usr/share/sway/config.d/50-rules-pavucontrol.conf
+RUN  rm -f /usr/share/sway/config.d/50-rules-browser.conf
 
 ### COPY CONFIG FILES
 ## this copy many files for Sway, Rofi, Swaylock, wlogout, Waybar
