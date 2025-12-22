@@ -42,10 +42,8 @@ RM_PACKAGES=(
   cups-client
   cups-libs
   ModemManager
-  ModemManager
   vmtoolsd
   vgauthd
-  avahi-daemon
 )
 CODECS=(
   ffmpeg
