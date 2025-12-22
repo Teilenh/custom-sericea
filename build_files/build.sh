@@ -7,11 +7,10 @@ set -ouex pipefail
 # RPM FUSION
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# FLATHUB
-flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # this installs a package from fedora repos
 PACKAGES=(
   fastfetch
+  flatpak
   steam
   discord
   kitty
@@ -63,6 +62,8 @@ dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
 dnf5 clean all
 dnf5 autoremove -y
 
+# FLATHUB
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf
 # Use a COPR Example:
 dnf5 copr enable scottames/vicinae
