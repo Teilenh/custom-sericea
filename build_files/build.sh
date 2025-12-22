@@ -32,8 +32,8 @@ PACKAGES=(
   google-noto-sans-fonts
   google-noto-serif-fonts
   google-noto-emoji-fonts
-  lilex-fonts
-  raleway-fonts
+ # lilex-fonts
+ # raleway-fonts
 )
 RM_PACKAGES=(
   foot
