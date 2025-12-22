@@ -64,7 +64,7 @@ dnf5 autoremove -y
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf
+flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
 dnf5 copr enable scottames/vicinae
 dnf5 install vicinae
