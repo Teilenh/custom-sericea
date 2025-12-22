@@ -43,6 +43,7 @@ RUN  rm -f /usr/share/sway/config.d/50-rules-browser.conf
 
 ### COPY CONFIG FILES
 ## this copy many files for Sway, Rofi, Swaylock, wlogout, Waybar
+COPY --chmod=644 build_files/files/sway/config /etc/sway/config
 COPY --chmod=644 build_files/files/sway/10-variables.conf /usr/share/sway/config.d/10-variables.conf
 COPY --chmod=644 build_files/files/sway/15-colors.conf /usr/share/sway/config.d/15-colors.conf
 COPY --chmod=644 build_files/files/sway/20-outputs.conf /usr/share/sway/config.d/20-outputs.conf
