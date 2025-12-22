@@ -37,11 +37,10 @@ dnf autoremove -y
 
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf
 # Use a COPR Example:
-#
-#dnf5 -y copr enable ublue-os/staging
-# dnf5 -y install package
+sudo dnf5 copr enable scottames/vicinae
+sudo dnf5 install vicinae
 # Disable COPRs so they don't end up enabled on the final image:
-#dnf5 -y copr disable ublue-os/staging
+dnf5 -y copr disable scottames/vicinae
 
 #### Example for enabling a System Unit File
 
