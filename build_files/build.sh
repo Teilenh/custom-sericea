@@ -26,6 +26,8 @@ PACKAGES=(
 )
 RM_PACKAGES=(
   foot
+  bluez
+  cups
 )
 dnf remove -y "${RM_PACKAGES[@]}"
 dnf install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
