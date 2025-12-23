@@ -34,6 +34,10 @@ PACKAGES=(
   impallari-raleway-fonts
   fira-code-fonts
   pocillo-gtk-theme
+  nemo
+  nemo-extension
+  nemo-preview
+  folder-color-switcher-nemo
 )
 RM_PACKAGES=(
   foot
