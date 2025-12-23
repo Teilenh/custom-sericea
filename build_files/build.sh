@@ -28,12 +28,12 @@ PACKAGES=(
   udisks2
   smartmontools
   vulkan-tools
-
   google-noto-sans-fonts
   google-noto-serif-fonts
   google-noto-emoji-fonts
- # lilex-fonts
- # raleway-fonts
+  impallari-raleway-fonts
+  fira-code-fonts
+  pocillo-gtk-theme
 )
 RM_PACKAGES=(
   foot
