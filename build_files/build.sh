@@ -66,6 +66,11 @@ flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.githu
 # Disable COPRs so they don't end up enabled on the final image:
 #dnf5 -y copr disable scottames/vicinae
 
+### ICON THEME: ARASHI
+git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
+mkdir -p /usr/share/icons
+cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
+
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
