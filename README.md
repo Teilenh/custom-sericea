@@ -1,8 +1,8 @@
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
 ## 🧩 Objectif
-Me basé sur l'**image Fedora Atomic Sway**, pour faire une image custom, prête a l'emploi ( pour moi ) et fonctionnel,
-But : un environnement **performant, reproductible, et légèrement durci**, optimisé pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
+Me basé sur l'**image Fedora Atomic Sway ( Sericea )**, pour faire une image custom, prête a l'emploi ( pour moi ) et fonctionnel
+But : un environnement **performant, reproductible**, avec de légére optimisation pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
 
 ---
 
@@ -15,21 +15,21 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ## ✅ État actuel
 
-- [x] **Base :** Fedora Atomic Sway (officielle)
-- [x] SELinux actif et configuré (set par défaut avec Fedora)
+- [x] **Base :** Fedora Atomic Sway (Sericea)
+- [x] SELinux actif (set par défaut avec Fedora)
 
 ---
 
 ## 🚧 Étapes à venir
 
 ### 🧠 Optimisations système
-- [ ] opti système, latence, network, scheduler 
+- [ ] TO DO
 
 ---
 
 ### 🎮 Logiciels à intégrer
 - [x] Steam
-- [ ] Lutris
+- [x] Lutris
 - [x] Gamemode
 - [x] Discord, Firefox
 - [x] Protonplus ( Flatpak ) 
@@ -42,7 +42,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [x] Configuration Sway (keybinds, rules)
 - [x] Waybar : topbar + modules personnalisés
 - [x] rofi configurés ( a méditer pour rofi, j'envisage une autre option - vicinae)
-- [ ] Thème GTK/Qt global
+- [ ] Thème GTK/Qt global - Pocillo
 - [x] Pack d’icônes : **Arashi**
 - [x] Wallpaper par défaut intégré
 
