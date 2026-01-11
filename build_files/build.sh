@@ -21,7 +21,6 @@ PACKAGES=(
   wlogout
   unzip
   cabextract
-  thunar-archive-plugin
   tumbler
   gvfs
   gvfs-smb
@@ -39,6 +38,9 @@ PACKAGES=(
   nemo
   nemo-extensions
   nemo-preview
+  file-roller
+  nemo-fileroller
+  unrar
   folder-color-switcher-nemo
 )
 RM_PACKAGES=(
@@ -47,6 +49,7 @@ RM_PACKAGES=(
   cups
   ModemManager
   tuned
+  xarchiver
 )
 CODECS=(
   gstreamer1-plugins-base
@@ -55,6 +58,9 @@ CODECS=(
   gstreamer1-plugins-bad-freeworld
   gstreamer1-plugins-ugly
   gstreamer1-libav
+  ffmpeg
+  ffmpeg-libs
+  mozilla-openh264
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
