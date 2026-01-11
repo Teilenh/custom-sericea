@@ -28,8 +28,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 ---
 
 ### 🎮 Logiciels à intégrer
-- [x] Steam
-- [x] Lutris
+- [x] Steam ( and usage of NonSteamLauncher, to use Epic,Gog directly in Steam )
 - [x] Gamemode
 - [x] Discord, Firefox
 - [x] Protonplus ( Flatpak ) 
