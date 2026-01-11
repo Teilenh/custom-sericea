@@ -58,8 +58,6 @@ CODECS=(
   gstreamer1-plugins-bad-freeworld
   gstreamer1-plugins-ugly
   gstreamer1-libav
-  ffmpeg
-  ffmpeg-libs
   mozilla-openh264
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
