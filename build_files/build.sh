@@ -8,6 +8,8 @@ set -ouex pipefail
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 # this installs a package from fedora repos
+LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-42\.rpm' | head -n 1)
+
 PACKAGES=(
   fastfetch
   steam
@@ -65,6 +67,7 @@ CODECS=(
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
+dnf install -y $LACT
 # Clean dnf cache and autoremove
 dnf5 clean all
 dnf5 autoremove -y
@@ -83,20 +86,6 @@ git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
-TMPDIR=$(mktemp -d)
-curl -L -o "$TMPDIR/FiraCode.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/FiraCode.zip"
-unzip -q "$TMPDIR/FiraCode.zip" -d "$TMPDIR/FiraCode"
-
-curl -L -o "$TMPDIR/Lilex.zip" "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.3.0/Lilex.zip"
-unzip -q "$TMPDIR/Lilex.zip" -d "$TMPDIR/Lilex"
-mkdir -p /usr/share/fonts/nerd-fonts/FiraCode
-mkdir -p /usr/share/fonts/nerd-fonts/Lilex
-cp "$TMPDIR/FiraCode"/*.ttf /usr/share/fonts/nerd-fonts/FiraCode/
-cp "$TMPDIR/Lilex"/*.ttf /usr/share/fonts/nerd-fonts/Lilex/
-fc-cache -fv
-
-# Nettoyage
-rm -rf "$TMPDIR"
 
 #### Example for enabling a System Unit File
 
