@@ -19,6 +19,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [X] Liste de logiciel préinstaller
 - [X] Gamemode ( dans le futur remplacé par Falcond )
 - [X] Sway est configuré, avec waybar, rofi, Icones, Wallpaper
+- [X] Configuration par défault Zram modifier
 
 ---
 
@@ -26,7 +27,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ### 🧠 Optimisations système
 - [ ] TO DO
-
+- [x] Zram configuré ( 50% ram, ou maximum 20Gb ) 
 ---
 
 ### 🎮 Logiciels à intégrer
