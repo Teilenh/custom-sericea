@@ -3,7 +3,7 @@
 ## 🧩 Objectif
 Me basé sur l'**image Fedora Atomic Sway ( Sericea )**, pour faire une image custom, prête a l'emploi ( pour moi ) et fonctionnel
 But : un environnement **performant, reproductible**, avec de légére optimisation pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
-
+**Basée :** Fedora Atomic Sway (Sericea)
 ---
 
 ## 🧱 Structure du dépôt
@@ -15,8 +15,10 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ## ✅ État actuel
 
-- [x] **Base :** Fedora Atomic Sway (Sericea)
 - [x] SELinux actif (set par défaut avec Fedora)
+- [X] Liste de logiciel préinstaller
+- [X] Gamemode ( dans le futur remplacé par Falcond )
+- [X] Sway est configuré, avec waybar, rofi, Icones, Wallpaper
 
 ---
 
@@ -56,6 +58,6 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ---
 
-## 📘 Notes finales
+## 📘 Information 
 - Image de base : Fedora sway Atomic
-- point clé : réactif et élégant,légère opti
+- point clé : réactif et élégant, légère opti
