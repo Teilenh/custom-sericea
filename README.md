@@ -45,7 +45,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [x] Waybar : topbar + modules personnalisés
 - [x] rofi configurés ( a méditer pour rofi, j'envisage une autre option - vicinae)
 - [ ] Thème GTK/Qt global - Pocillo
-- [x] Pack d’icônes : **[Arashi][https://github.com/0hStormy/Arashi/releases]**
+- [x] Pack d’icônes : **[Arashi] [https://github.com/0hStormy/Arashi/releases]**
 - [x] Wallpaper par défaut intégré
 
 ---
