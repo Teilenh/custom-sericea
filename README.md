@@ -1,3 +1,6 @@
+### TO-DO
+- copy some script and addition from bazzite
+
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
 ## 🧩 Objectif
