@@ -44,6 +44,10 @@ PACKAGES=(
   nemo-fileroller
   unrar
   folder-color-switcher-nemo
+  SwayNotificationCenter
+  SwayNotificationCenter-zsh-completion
+  zsh
+  zsh-syntax-highlighting
 )
 RM_PACKAGES=(
   foot
