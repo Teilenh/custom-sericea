@@ -49,6 +49,7 @@ PACKAGES=(
   zsh
   zsh-syntax-highlighting
   libappindicator-gtk3
+  plasma-workspace
 )
 RM_PACKAGES=(
   foot
