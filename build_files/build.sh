@@ -48,6 +48,7 @@ PACKAGES=(
   SwayNotificationCenter-zsh-completion
   zsh
   zsh-syntax-highlighting
+  libappindicator-gtk3
 )
 RM_PACKAGES=(
   foot
