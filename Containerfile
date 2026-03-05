@@ -80,7 +80,23 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/zram-generator.conf
 
 
+# Cleanup & Finalize
+RUN --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=tmpfs,dst=/tmp \
+    echo "import \"/usr/share/ublue-os/just/95-bazzite-nvidia.just\"" >> /usr/share/ublue-os/justfile && \
+    if grep -q "silverblue" <<< "${BASE_IMAGE_NAME}"; then \
+        mkdir -p "/usr/share/ublue-os/dconfs/nvidia-silverblue/" && \
+        cp "/usr/share/glib-2.0/schemas/zz0-"*"-bazzite-nvidia-silverblue-"*".gschema.override" "/usr/share/ublue-os/dconfs/nvidia-silverblue/" && \
+        dconf-override-converter to-dconf "/usr/share/ublue-os/dconfs/nvidia-silverblue/zz0-"*"-bazzite-nvidia-silverblue-"*".gschema.override" && \
+        rm "/usr/share/ublue-os/dconfs/nvidia-silverblue/zz0-"*"-bazzite-nvidia-silverblue-"*".gschema.override" \
+    ; fi && \
+    dnf5 config-manager setopt skip_if_unavailable=1 && \
+    /ctx/image-info && \
+    /ctx/build-initramfs && \
+    /ctx/finalize
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
-
