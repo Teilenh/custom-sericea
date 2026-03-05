@@ -85,8 +85,7 @@ RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
-    dnf5 config-manager setopt skip_if_unavailable=1 && \
-    /ctx/image-info.sh && \
+    dnf5 config-manager setopt skip_if_unavailable=1 && \ 
     /ctx/build-initramfs.sh && \
     /ctx/finalize.sh
 
