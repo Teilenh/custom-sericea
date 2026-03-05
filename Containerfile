@@ -93,9 +93,9 @@ RUN --mount=type=cache,dst=/var/cache \
         rm "/usr/share/ublue-os/dconfs/nvidia-silverblue/zz0-"*"-bazzite-nvidia-silverblue-"*".gschema.override" \
     ; fi && \
     dnf5 config-manager setopt skip_if_unavailable=1 && \
-    /ctx/image-info && \
-    /ctx/build-initramfs && \
-    /ctx/finalize
+    /ctx/image-info.sh && \
+    /ctx/build-initramfs.sh && \
+    /ctx/finalize.sh
 
 ### LINTING
 ## Verify final image and contents are correct.
