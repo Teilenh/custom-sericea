@@ -79,15 +79,6 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/zram-generator.conf
 
-
-# Cleanup & Finalize
-RUN --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
-    --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
-    dnf5 config-manager setopt skip_if_unavailable=1 && \ 
-    /ctx/finalize.sh
-
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
