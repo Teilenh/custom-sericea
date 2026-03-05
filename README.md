@@ -4,9 +4,8 @@
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
 ## 🧩 Objectif
-Me basé sur l'**image Fedora Atomic Sway ( Sericea )**, pour faire une image custom, prête a l'emploi ( pour moi ) et fonctionnel
-But : un environnement **performant, reproductible**, avec de légére optimisation pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
-**Basée :** Fedora Atomic Sway (Sericea)
+Me baser sur l'**image Fedora Atomic Sway ( Sericea )**, avoir l'os parfait OOTB ( pour moi ) et fonctionnel
+tout en conservant un environnement **performant, reproductible**, avec de légére optimisation pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
 ---
 
 ## 🧱 Structure du dépôt
