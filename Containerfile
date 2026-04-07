@@ -74,11 +74,18 @@ RUN mkdir -p /usr/share/kitty
 COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/kitty/kitty.conf
 COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/kitty/current-theme.conf
 
-## for systemd rule, config, etc
+## for systemd rule, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
+COPY build_files/files/systemd/falcond.service /etc/systemd/falcond.service
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/zram-generator.conf
 
+## Activate some systemd things
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
+    /ctx/systemd-service.sh
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
