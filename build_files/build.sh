@@ -86,7 +86,7 @@ dnf5 install -y $LACT
 dnf5 install -y "${BUILD_PACKAGES[@]}"
 
 # build Falcond
-git clone --depth=1 https://git.pika-os.com/general-packages/falcond /tmp/falcond
+git clone --depth=1 https://git.pika-os.com/general-packages/falcond /tmp/
 cd /tmp/falcond
 mkdir /opt/falcond && mkdir -p /run/falcond
 zig build -Doptimize=ReleaseFast \
