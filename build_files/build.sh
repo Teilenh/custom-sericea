@@ -17,7 +17,6 @@ PACKAGES=(
   lutris
   kitty
   btop
-  gamemode
   mpv
   distrobox
   wlogout
@@ -49,6 +48,17 @@ PACKAGES=(
   zsh
   zsh-syntax-highlighting
   libappindicator-gtk3
+  glib2-devel
+  systemd-devel
+  git
+)
+BUILD_PACKAGES=(
+  zig
+  pkgconf
+  meson
+  ninja
+  gcc
+  make
 )
 RM_PACKAGES=(
   foot
@@ -73,9 +83,21 @@ dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
 dnf5 install -y $LACT
-# Clean dnf cache and autoremove
-dnf5 clean all
-dnf5 autoremove -y
+dnf5 install -y "${BUILD_PACKAGES[@]}"
+
+# build Falcond
+git clone --depth=1 https://git.pika-os.com/general-packages/falcond /tmp/falcond
+cd /tmp/falcond
+mkdir -p /opt/falcond /run/falcond
+zig build -Doptimize=ReleaseFast \
+          -Dconfig-path=/opt/falcond/config.conf \
+          -Dstatus-file=/run/falcond/status
+cp ./zig-out/bin/falcond /usr/local/bin/falcond
+cd /
+rm -rf /tmp/falcond
+
+# for a lightweight image
+dnf5 remove -y "${BUILD_PACKAGES[@]}"
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -91,7 +113,9 @@ git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
-
+# Clean dnf
+dnf5 clean all
+dnf5 autoremove -y
 #### Example for enabling a System Unit File
 
 systemctl enable podman.socket
