@@ -72,7 +72,7 @@ CODECS=(
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
-dnf install -y $LACT
+dnf5 install -y $LACT
 # Clean dnf cache and autoremove
 dnf5 clean all
 dnf5 autoremove -y
