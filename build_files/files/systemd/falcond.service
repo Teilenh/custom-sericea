@@ -1,0 +1,13 @@
+[Unit]
+Description=Falcond Game Performance Daemon
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/falcond \
+          -Dconfig-path=/opt/falcond/config.conf \
+          -Dstatus-file=/run/falcond/status
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
