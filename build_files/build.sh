@@ -116,6 +116,3 @@ cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 # Clean dnf
 dnf5 clean all
 dnf5 autoremove -y
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
