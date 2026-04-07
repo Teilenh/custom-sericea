@@ -8,7 +8,7 @@ set -ouex pipefail
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 # this installs a package from fedora repos
-LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-42\.rpm' | head -n 1)
+LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-43\.rpm' | head -n 1)
 
 PACKAGES=(
   fastfetch
@@ -44,6 +44,11 @@ PACKAGES=(
   nemo-fileroller
   unrar
   folder-color-switcher-nemo
+  SwayNotificationCenter
+  SwayNotificationCenter-zsh-completion
+  zsh
+  zsh-syntax-highlighting
+  libappindicator-gtk3
 )
 RM_PACKAGES=(
   foot
@@ -67,7 +72,7 @@ CODECS=(
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
-dnf install -y $LACT
+dnf5 install -y $LACT
 # Clean dnf cache and autoremove
 dnf5 clean all
 dnf5 autoremove -y

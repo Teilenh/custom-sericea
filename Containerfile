@@ -1,3 +1,11 @@
+LABEL org.opencontainers.image.title="custom-sericea" \
+      org.opencontainers.image.version="latest.20260110" \
+      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/edit/main/Containerfile" \
+      org.opencontainers.image.vendor="no-one" \
+      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
+      org.opencontainers.image.description="simple sway atomic for my daily use"
+
+
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /
@@ -71,15 +79,6 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/zram-generator.conf
 
-
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
-
-
-LABEL org.opencontainers.image.title="custom-sericea" \
-      org.opencontainers.image.version="latest.20260110" \
-      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/edit/main/Containerfile" \
-      org.opencontainers.image.vendor="no-one" \
-      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
-      org.opencontainers.image.description="simple sway atomic for my daily use"

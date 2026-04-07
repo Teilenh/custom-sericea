@@ -1,0 +1,1116 @@
+/* ==========================================
+ * GTK3 Custom Theme - Dark Variant
+ * ==========================================
+ * Optimized for Nemo file manager and general GTK3 applications
+ * Uses Lilex Nerd Font and Arashi icon theme
+ */
+
+/* Define variant before importing colors */
+/* Import color definitions */
+/* ==========================================
+ * GLOBAL RESETS & BASE STYLES
+ * ========================================== */
+
+* {
+  padding: 0;
+  margin: 0;
+  -GtkToolButton-icon-spacing: 4;
+  -GtkTextView-error-underline-color: #B95C65;
+  -GtkScrolledWindow-scrollbar-spacing: 0;
+  -GtkToolItemGroup-expander-size: 11;
+  -GtkWidget-text-handle-width: 20;
+  -GtkWidget-text-handle-height: 24;
+  -GtkDialog-button-spacing: 4;
+  -GtkDialog-action-area-border: 0;
+  outline-color: rgba(236, 226, 207, 0.30);
+  outline-style: dashed;
+  outline-offset: -3px;
+  outline-width: 1px;
+  -gtk-outline-radius: 2px;
+  -gtk-secondary-caret-color: #ECEBE9;
+}
+
+/* ==========================================
+ * BASE WINDOW & BACKGROUNDS
+ * ========================================== */
+
+.background {
+  color: #ECE2CF;
+  background-color: #2E3440;
+}
+
+.background:backdrop {
+  color: #6B7380;
+  background-color: #2E3440;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+window {
+  background-color: #2E3440;
+  color: #ECE2CF;
+}
+
+window.csd {
+  border-radius: 8px;
+  box-shadow: 0 3px 9px 1px rgba(0, 0, 0, 0.50),
+              0 0 0 1px #181B20;
+  margin: 0;
+}
+
+window.csd:backdrop {
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.20),
+              0 0 0 1px #1C1F25;
+}
+
+window.solid-csd {
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-shadow: none;
+}
+
+/* ==========================================
+ * TEXT & SELECTIONS
+ * ========================================== */
+
+.view text,
+textview text {
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+.view text:backdrop,
+textview text:backdrop {
+  background-color: #1E2127;
+  color: #BFB8AB;
+}
+
+*:selected,
+*:selected:focus {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+selection {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+/* ==========================================
+ * BUTTONS
+ * ========================================== */
+
+button {
+  min-height: 24px;
+  min-width: 16px;
+  padding: 4px 8px;
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  background-image: linear-gradient(to bottom, #2E3440, #272c37);
+  color: #ECE2CF;
+  text-shadow: 0 1px rgba(0,0,0,0.1);
+  -gtk-icon-shadow: 0 1px rgba(0,0,0,0.1);
+}
+
+button:hover {
+  border-color: #181B20;
+  background-image: linear-gradient(to bottom, #38404e, #323845);
+  -gtk-icon-effect: highlight;
+}
+
+button:active,
+button:checked {
+  border-color: #0d0e11;
+  background-image: linear-gradient(to bottom, #232731, #292f3a);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.10);
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+button:disabled {
+  border-color: rgba(24,27,32,0.3);
+  background-color: #2E3440;
+  color: #6B7380;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+button:backdrop {
+  border-color: #1C1F25;
+  background-color: #2E3440;
+  color: #6B7380;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+/* Suggested Action Buttons */
+button.suggested-action {
+  background-image: linear-gradient(to bottom, #80B3C9, #6ea8c1);
+  border-color: #5c9db9;
+  color: #2E3440;
+}
+
+button.suggested-action:hover {
+  background-image: linear-gradient(to bottom, #91bdd0, #80B3C9);
+}
+
+button.suggested-action:active {
+  background-image: linear-gradient(to bottom, #5c9db9, #6ea8c1);
+}
+
+/* Destructive Action Buttons */
+button.destructive-action {
+  background-image: linear-gradient(to bottom, #BF616A, #b74e58);
+  border-color: #a8444d;
+  color: white;
+}
+
+button.destructive-action:hover {
+  background-image: linear-gradient(to bottom, #c6737b, #BF616A);
+}
+
+button.destructive-action:active {
+  background-image: linear-gradient(to bottom, #a8444d, #b74e58);
+}
+
+/* Flat Buttons */
+button.flat {
+  border-color: transparent;
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+  text-shadow: none;
+  -gtk-icon-shadow: none;
+}
+
+button.flat:hover {
+  background-color: rgba(236,226,207,0.05);
+}
+
+/* ==========================================
+ * ENTRIES (Text Inputs)
+ * ========================================== */
+
+entry {
+  min-height: 32px;
+  padding: 5px 8px;
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+entry:focus {
+  border-color: #ECEBE9;
+  box-shadow: inset 0 0 0 1px #ECEBE9;
+}
+
+entry:disabled {
+  background-color: #1A1D23;
+  color: #6B7380;
+  border-color: rgba(24,27,32,0.3);
+}
+
+entry:backdrop {
+  background-color: #1E2127;
+  color: #BFB8AB;
+  border-color: #1C1F25;
+}
+
+entry selection {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+/* Entry Icons */
+entry image {
+  color: #c2bbad;
+}
+
+entry image:hover {
+  color: #ECE2CF;
+}
+
+entry image:active {
+  color: #ECEBE9;
+}
+
+/* ==========================================
+ * SCROLLBARS
+ * ========================================== */
+
+scrollbar {
+  background-color: #262931;
+  border: none;
+}
+
+scrollbar slider {
+  min-width: 10px;
+  min-height: 10px;
+  margin: 2px;
+  border: none;
+  border-radius: 6px;
+  background-color: #838992;
+}
+
+scrollbar slider:hover {
+  background-color: #B3B9C2;
+}
+
+scrollbar slider:active {
+  background-color: #F5F4F2;
+}
+
+scrollbar slider:disabled {
+  background-color: rgba(131, 137, 146, 0.50);
+}
+
+scrollbar slider:backdrop {
+  background-color: #4D5461;
+}
+
+scrollbar.vertical slider {
+  min-width: 10px;
+}
+
+scrollbar.horizontal slider {
+  min-height: 10px;
+}
+
+/* Overlay scrollbars */
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) {
+  opacity: 0.4;
+  border-color: transparent;
+  background-color: transparent;
+}
+
+scrollbar.overlay-indicator:not(.dragging):not(.hovering) slider {
+  min-width: 4px;
+  min-height: 4px;
+  margin: 0;
+  border: none;
+}
+
+/* ==========================================
+ * HEADERBAR & TITLEBAR
+ * ========================================== */
+
+headerbar,
+.titlebar {
+  padding: 0 6px;
+  min-height: 42px;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #181B20;
+  border-radius: 8px 8px 0 0;
+  background-image: linear-gradient(to bottom, #272c35, #1e232a);
+  color: #ECE2CF;
+  box-shadow: inset 0 1px rgba(255,255,255,0.1);
+}
+
+headerbar:backdrop,
+.titlebar:backdrop {
+  border-color: #1C1F25;
+  background-color: #232830;
+  color: rgba(236,226,207,0.8);
+  box-shadow: none;
+}
+
+headerbar .title {
+  font-weight: bold;
+  padding: 0 12px;
+}
+
+headerbar .subtitle {
+  font-size: smaller;
+  padding: 0 12px;
+}
+
+/* Headerbar buttons */
+headerbar button {
+  background-image: linear-gradient(to bottom, rgba(35, 40, 48, 0.50), rgba(28, 32, 39, 0.50));
+  border-color: rgba(24, 27, 32, 0.70);
+  color: #ECE2CF;
+}
+
+headerbar button:hover {
+  background-image: linear-gradient(to bottom, rgba(45, 52, 62, 0.50), rgba(35, 40, 48, 0.50));
+}
+
+headerbar button:active,
+headerbar button:checked {
+  background-image: linear-gradient(to bottom, rgba(19, 22, 27, 0.50), rgba(26, 30, 36, 0.50));
+}
+
+headerbar button:backdrop {
+  background-color: rgba(35, 40, 48, 0.50);
+  border-color: rgba(28, 31, 37, 0.50);
+  color: rgba(236,226,207,0.8);
+}
+
+/* ==========================================
+ * SIDEBAR
+ * ========================================== */
+
+.sidebar {
+  background-color: #262931;
+  border-right: 1px solid #181B20;
+}
+
+.sidebar:backdrop {
+  background-color: #262931;
+  border-color: #1C1F25;
+}
+
+.sidebar row {
+  padding: 8px 12px;
+}
+
+.sidebar row:hover {
+  background-color: rgba(236,226,207,0.05);
+}
+
+.sidebar row:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+.sidebar row:selected:backdrop {
+  background-color: rgba(236,235,233,0.6);
+}
+
+/* ==========================================
+ * MENUS & POPOVERS
+ * ========================================== */
+
+menu,
+.menu,
+.context-menu {
+  margin: 4px;
+  padding: 4px;
+  background-color: #262A32;
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.30);
+}
+
+menu:backdrop,
+.menu:backdrop {
+  background-color: #262A32;
+  border-color: #1C1F25;
+}
+
+menuitem {
+  min-height: 20px;
+  min-width: 40px;
+  padding: 6px 8px;
+  border-radius: 3px;
+}
+
+menuitem:hover {
+  background-color: rgba(236,226,207,0.05);
+}
+
+menuitem:disabled {
+  color: #6B7380;
+}
+
+menuitem arrow {
+  min-height: 16px;
+  min-width: 16px;
+}
+
+/* Popover */
+popover.background {
+  padding: 0;
+  background-color: #1D2026;
+  border: 1px solid #181B20;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+}
+
+popover.background:backdrop {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.10);
+}
+
+popover > contents {
+  padding: 8px;
+}
+
+popover modelbutton {
+  min-height: 30px;
+  padding: 4px 8px;
+  border-radius: 3px;
+}
+
+popover modelbutton:hover {
+  background-color: #333842;
+}
+
+/* ==========================================
+ * NOTEBOOK (Tabs)
+ * ========================================== */
+
+notebook {
+  padding: 0;
+}
+
+notebook > header {
+  padding: 2px;
+  background-color: #2E3440;
+  border-bottom: 1px solid #181B20;
+}
+
+notebook > header:backdrop {
+  background-color: #2E3440;
+  border-color: #1C1F25;
+}
+
+notebook > header tabs {
+  margin: 0;
+}
+
+notebook > header tab {
+  min-height: 30px;
+  min-width: 30px;
+  padding: 4px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px 4px 0 0;
+  background-color: transparent;
+  color: #a09c95;
+}
+
+notebook > header tab:hover {
+  background-color: rgba(236,226,207,0.05);
+  color: #ECE2CF;
+}
+
+notebook > header tab:checked {
+  border-color: #181B20;
+  border-bottom-color: #2E3440;
+  background-color: #2E3440;
+  color: #ECE2CF;
+}
+
+notebook > header tab:backdrop {
+  color: #6B7380;
+}
+
+notebook > header tab:backdrop:checked {
+  background-color: #2E3440;
+  border-color: #1C1F25;
+}
+
+/* ==========================================
+ * SWITCHES
+ * ========================================== */
+
+switch {
+  min-width: 44px;
+  min-height: 24px;
+  border: 1px solid #181B20;
+  border-radius: 12px;
+  background-color: #25282F;
+}
+
+switch:checked {
+  background-color: #ECEBE9;
+  border-color: #D5D4D2;
+}
+
+switch:disabled {
+  background-color: #2A2E36;
+  border-color: rgba(24,27,32,0.3);
+}
+
+switch slider {
+  min-width: 20px;
+  min-height: 20px;
+  margin: 1px;
+  border-radius: 10px;
+  background-color: #ECEAE7;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
+}
+
+switch:checked slider {
+  background-color: #2E3440;
+}
+
+/* ==========================================
+ * CHECKBOXES & RADIO BUTTONS
+ * ========================================== */
+
+checkbutton,
+radiobutton {
+  margin: 2px;
+  padding: 2px;
+}
+
+checkbutton label,
+radiobutton label {
+  padding: 0 4px;
+}
+
+check,
+radio {
+  min-width: 16px;
+  min-height: 16px;
+  margin: 2px;
+  border: 1px solid #181B20;
+  background-color: #1D2026;
+  -gtk-icon-source: none;
+}
+
+check {
+  border-radius: 3px;
+}
+
+radio {
+  border-radius: 50%;
+}
+
+check:hover,
+radio:hover {
+  border-color: #2d333d;
+  background-color: #23272e;
+}
+
+check:checked,
+radio:checked {
+  border-color: #D5D4D2;
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+check:checked {
+  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+
+radio:checked {
+  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+}
+
+check:disabled,
+radio:disabled {
+  border-color: rgba(24,27,32,0.3);
+  background-color: #1A1D23;
+}
+
+/* ==========================================
+ * PROGRESSBAR & LEVELBAR
+ * ========================================== */
+
+progressbar {
+  font-size: smaller;
+  color: rgba(236, 226, 207, 0.70);
+}
+
+progressbar trough {
+  min-height: 6px;
+  border: 1px solid #181B20;
+  border-radius: 3px;
+  background-color: #25282F;
+}
+
+progressbar progress {
+  border-radius: 3px;
+  background-color: #ECEBE9;
+  background-image: linear-gradient(to bottom, #f7f7f6, #ECEBE9);
+}
+
+levelbar trough {
+  min-height: 6px;
+  border: 1px solid #181B20;
+  border-radius: 3px;
+  background-color: #25282F;
+}
+
+levelbar block.filled {
+  border-radius: 2px;
+  background-color: #ECEBE9;
+}
+
+levelbar block.high {
+  background-color: #6C9BB1;
+}
+
+levelbar block.low {
+  background-color: #A66373;
+}
+
+levelbar block.empty {
+  background-color: transparent;
+}
+
+/* ==========================================
+ * SCALES (Sliders)
+ * ========================================== */
+
+scale {
+  min-height: 16px;
+  min-width: 16px;
+}
+
+scale trough {
+  min-height: 6px;
+  min-width: 6px;
+  border: 1px solid #181B20;
+  border-radius: 3px;
+  background-color: rgba(255,255,255,0.14);
+}
+
+scale slider {
+  min-height: 18px;
+  min-width: 18px;
+  margin: -7px;
+  border: 1px solid #181B20;
+  border-radius: 50%;
+  background-color: #ECEAE7;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.30);
+}
+
+scale slider:hover {
+  background-color: #f7f6f5;
+}
+
+scale slider:active {
+  border-color: #D5D4D2;
+}
+
+scale slider:disabled {
+  background-color: #8d8f93;
+  border-color: rgba(24,27,32,0.3);
+}
+
+scale highlight {
+  border-radius: 3px;
+  background-color: #ECEBE9;
+}
+
+scale:disabled trough {
+  background-color: rgba(255,255,255,0.06);
+}
+
+/* ==========================================
+ * SPINBUTTON
+ * ========================================== */
+
+spinbutton {
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  background-color: #1D2026;
+}
+
+spinbutton:focus {
+  border-color: #ECEBE9;
+}
+
+spinbutton entry {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+spinbutton button {
+  border: none;
+  border-radius: 0;
+  background-image: none;
+  background-color: transparent;
+}
+
+spinbutton button:hover {
+  background-color: rgba(236,226,207,0.05);
+}
+
+/* ==========================================
+ * COMBOBOX & DROPDOWN
+ * ========================================== */
+
+combobox button.combo {
+  padding: 4px 8px;
+}
+
+combobox arrow {
+  min-height: 16px;
+  min-width: 16px;
+  -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+}
+
+/* ==========================================
+ * TOOLBAR
+ * ========================================== */
+
+toolbar {
+  padding: 4px;
+  background-color: #2E3440;
+  border-bottom: 1px solid #181B20;
+}
+
+toolbar:backdrop {
+  background-color: #2E3440;
+  border-color: #1C1F25;
+}
+
+toolbar separator {
+  margin: 4px;
+  background-color: #181B20;
+}
+
+/* ==========================================
+ * TOOLTIP
+ * ========================================== */
+
+tooltip {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #181B20;
+  background-color: rgba(26,28,33,0.93);
+  color: #ECE2CF;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.20);
+}
+
+tooltip * {
+  background-color: transparent;
+  color: #ECE2CF;
+}
+
+/* ==========================================
+ * INFOBAR
+ * ========================================== */
+
+infobar {
+  border-style: solid;
+  border-width: 0 0 1px 0;
+}
+
+.info {
+  background-color: #A3BE8C;
+  border-color: #88ab6b;
+  color: #2E3440;
+}
+
+.question {
+  background-color: #80B3C9;
+  border-color: #5c9db9;
+  color: #2E3440;
+}
+
+.warning {
+  background-color: #A66373;
+  border-color: #884d5b;
+  color: #2E3440;
+}
+
+.error {
+  background-color: #B95C65;
+  border-color: #9e434c;
+  color: white;
+}
+
+/* ==========================================
+ * NEMO FILE MANAGER SPECIFIC
+ * ========================================== */
+
+/* Nemo sidebar */
+.nemo-window .sidebar {
+  background-color: #1A1D23;
+}
+
+.nemo-window .sidebar row {
+  padding: 6px 10px;
+}
+
+.nemo-window .sidebar row:hover {
+  background-color: #20242b;
+}
+
+.nemo-window .sidebar row:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+  font-weight: bold;
+}
+
+/* Nemo desktop icons */
+.nemo-desktop.nemo-canvas-item {
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.nemo-desktop.nemo-canvas-item:selected {
+  color: #2E3440;
+}
+
+/* Nemo pathbar */
+.nemo-window .primary-toolbar {
+  background-color: #232830;
+  border-bottom: 1px solid #181B20;
+}
+
+/* Nemo location bar */
+.nemo-window .primary-toolbar entry {
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+/* Nemo statusbar */
+.nemo-window statusbar {
+  padding: 4px 8px;
+  background-color: #292f3a;
+  border-top: 1px solid #181B20;
+}
+
+/* Nemo icon view */
+.nemo-window iconview,
+.nemo-window .nemo-icon-view-container,
+.nemo-window .view,
+.nemo-window scrolledwindow {
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+.nemo-window iconview .cell {
+  background-color: transparent;
+  color: #ECE2CF;
+}
+
+.nemo-window iconview .cell:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+.nemo-window iconview:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+.nemo-window .nemo-window-pane {
+  background-color: #1D2026;
+}
+
+/* Nemo list view */
+.nemo-window treeview {
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+.nemo-window treeview:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+}
+
+/* ==========================================
+ * MISCELLANEOUS
+ * ========================================== */
+
+/* Separator */
+separator {
+  background-color: #181B20;
+  min-width: 1px;
+  min-height: 1px;
+}
+
+separator:backdrop {
+  background-color: #1C1F25;
+}
+
+/* Spinner */
+spinner {
+  color: #ECEBE9;
+  -gtk-icon-source: -gtk-icontheme("process-working-symbolic");
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { -gtk-icon-transform: rotate(1turn); }
+}
+
+spinner:disabled {
+  color: #6B7380;
+}
+
+/* Links */
+link {
+  color: #5E81AC;
+}
+
+link:visited {
+  color: rgba(94,129,172,0.5);
+}
+
+link:hover {
+  color: #7f9bbd;
+}
+
+/* Frame */
+frame > border {
+  border: 1px solid #181B20;
+  border-radius: 4px;
+}
+
+frame:backdrop > border {
+  border-color: #1C1F25;
+}
+
+/* Expander */
+expander arrow {
+  min-width: 16px;
+  min-height: 16px;
+  -gtk-icon-source: -gtk-icontheme("pan-end-symbolic");
+}
+
+expander arrow:checked {
+  -gtk-icon-source: -gtk-icontheme("pan-down-symbolic");
+}
+
+/* Calendar */
+calendar {
+  padding: 4px;
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  background-color: #1D2026;
+  color: #ECE2CF;
+}
+
+calendar:selected {
+  background-color: #ECEBE9;
+  color: #2E3440;
+  border-radius: 3px;
+}
+
+calendar.header {
+  background-color: #2E3440;
+  border-bottom: 1px solid #181B20;
+}
+
+calendar.button {
+  color: #8d8b87;
+}
+
+calendar.button:hover {
+  color: #ECE2CF;
+}
+
+/* ==========================================
+ * OSD (On-Screen Display)
+ * ========================================== */
+
+.osd {
+  color: #ECE2CF;
+  background-color: rgba(26,28,33,0.93);
+  border: 1px solid #181B20;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.30);
+}
+
+.osd button {
+  background-color: rgba(26,28,33, 0.5);
+  border-color: rgba(24, 27, 32, 0.70);
+  color: #ECE2CF;
+}
+
+.osd button:hover {
+  background-color: rgba(26,28,33, 0.5);
+}
+
+.osd button:active {
+  background-color: rgba(26,28,33, 0.5);
+}
+
+/* ==========================================
+ * PANED (Split View)
+ * ========================================== */
+
+paned > separator {
+  min-width: 1px;
+  min-height: 1px;
+  background-color: #181B20;
+  background-image: none;
+  border: none;
+}
+
+paned > separator:backdrop {
+  background-color: #1C1F25;
+}
+
+paned.horizontal > separator {
+  background-repeat: repeat-y;
+}
+
+paned.vertical > separator {
+  background-repeat: repeat-x;
+}
+
+/* ==========================================
+ * WINDOW DECORATIONS
+ * ========================================== */
+
+decoration {
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 3px 9px 1px rgba(0, 0, 0, 0.50),
+              0 0 0 1px #181B20;
+  margin: 0;
+}
+
+decoration:backdrop {
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.20),
+              0 0 0 1px #1C1F25;
+}
+
+.maximized decoration,
+.fullscreen decoration,
+.tiled decoration {
+  border-radius: 0;
+}
+
+/* Window buttons */
+windowcontrols button {
+  min-width: 20px;
+  min-height: 20px;
+  margin: 0;
+  padding: 4px;
+}
+
+/* ==========================================
+ * PRINT DIALOG
+ * ========================================== */
+
+printdialog paper {
+  background-color: white;
+  border: 1px solid #181B20;
+}
+
+printdialog .dialog-action-box {
+  margin: 12px;
+}
+
+/* ==========================================
+ * COLOR CHOOSER
+ * ========================================== */
+
+colorswatch {
+  border: 1px solid #181B20;
+  border-radius: 4px;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.10);
+}
+
+colorswatch.dark {
+  color: white;
+}
+
+colorswatch.light {
+  color: black;
+}
+
+/* ==========================================
+ * WINDOW MANAGER HINTS
+ * ========================================== */
+
+.solid-csd {
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #232830;
+  border: 1px solid #181B20;
+  box-shadow: none;
+}
