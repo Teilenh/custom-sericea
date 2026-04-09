@@ -11,46 +11,45 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-43\.rpm' | head -n 1)
 
 PACKAGES=(
-  fastfetch
-  steam
-  discord
-  lutris
-  kitty
-  btop
   mpv
-  distrobox
-  wlogout
-  unzip
-  cabextract
-  tumbler
+  git
+  zsh
+  nemo
+  btop
   gvfs
-  gvfs-smb
-  gvfs-mtp
+  unrar
+  unzip
+  kitty
+  steam
+  lutris
+  discord
+  wlogout
   udisks2
-  smartmontools
+  gvfs-mtp
+  gvfs-smb
+  fastfetch
+  distrobox
+  cabextract
+  file-roller
+  glib2-devel
   vulkan-tools
+  nemo-preview
+  smartmontools
+  systemd-devel
+  nemo-fileroller
+  fira-code-fonts
+  nemo-extensions
+  pocillo-gtk-theme
+  libappindicator-gtk3
+  cascadia-code-nf-fonts
   google-noto-sans-fonts
+  SwayNotificationCenter
   google-noto-serif-fonts
   google-noto-emoji-fonts
   impallari-raleway-fonts
-  fira-code-fonts
-  cascadia-code-nf-fonts
-  pocillo-gtk-theme
-  nemo
-  nemo-extensions
-  nemo-preview
-  file-roller
-  nemo-fileroller
-  unrar
-  folder-color-switcher-nemo
-  SwayNotificationCenter
-  SwayNotificationCenter-zsh-completion
-  zsh
   zsh-syntax-highlighting
-  libappindicator-gtk3
-  glib2-devel
-  systemd-devel
-  git
+  folder-color-switcher-nemo
+  SwayNotificationCenter-zsh-completion
 )
 BUILD_PACKAGES=(
   zig
