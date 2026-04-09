@@ -54,7 +54,7 @@ PACKAGES=(
 )
 BUILD_PACKAGES=(
   zig
-  pkgconf
+  #pkgconf
   meson
   ninja
   gcc
