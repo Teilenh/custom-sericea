@@ -88,14 +88,14 @@ dnf5 install -y "${BUILD_PACKAGES[@]}"
 # build Falcond
 git clone https://git.pika-os.com/general-packages/falcond.git /tmp/
 cd /tmp/falcond
-mkdir /opt/falcond/conf.d && mkdir -p /run/falcond
-mkdir /tmp/zig-cache
+install -d -m 765 /opt/falcond/conf.d && install -d -m 765 /run/falcond
+install -d -m 765 /tmp/zig-cache
 export ZIG_CACHE_DIR=/tmp/zig-cache
 zig build -Doptimize=ReleaseFast \
           -Dconfig-path=/opt/falcond/config.conf \
           -Dstatus-file=/run/falcond/status \
           -Duser-profiles-dir=/opt/falcond/conf.d
-mkdir /usr/local/bin
+install -d -m 765 /usr/local/bin
 cp ./zig-out/bin/falcond /usr/local/bin/falcond
 cd /
 rm -rf /tmp/falcond
