@@ -1,5 +1,7 @@
 ### TO-DO
-- copy some script and addition from bazzite
+- meilleurs gestion des logs
+- changé quelque régle de sécu ( notamment firewall )
+- si test unstable concluant avec falcond, merge branch
 
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
