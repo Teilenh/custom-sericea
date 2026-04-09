@@ -95,8 +95,10 @@ zig build -Doptimize=ReleaseFast \
           -Dconfig-path=/opt/falcond/config.conf \
           -Dstatus-file=/run/falcond/status \
           -Duser-profiles-dir=/opt/falcond/conf.d
-install -d -m 765 /usr/local/bin
-cp ./zig-out/bin/falcond /usr/local/bin/falcond
+
+install -m 755 ./zig-out/bin/falcond /usr/bin/falcond
+#install -d -m 765 /usr/local/bin
+#cp ./zig-out/bin/falcond /usr/local/bin/falcond
 cd /
 rm -rf /tmp/falcond
 
