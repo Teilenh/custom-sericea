@@ -1,7 +1,7 @@
 ### TO-DO
 - meilleurs gestion des logs
 - changé quelque régle de sécu ( notamment firewall )
-- si test unstable concluant avec falcond, merge branch
+- si test unstable concluant avec [falcond](https://git.pika-os.com/general-packages/falcond), merge branch
 
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
@@ -22,7 +22,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 - [x] SELinux actif (set par défaut avec Fedora)
 - [X] Liste de logiciel préinstaller
-- [X] Gamemode ( branche unstable avec Falcond )
+- [X] Gamemode ( branche unstable avec [Falcond](https://git.pika-os.com/general-packages/falcond) )
 - [X] Sway est configuré, ainsi que waybar, rofi, Icones, et un Wallpaper par défault
 - [X] Configuration par défault Zram modifier
 
