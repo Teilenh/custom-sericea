@@ -25,6 +25,7 @@ PACKAGES=(
   discord
   wlogout
   udisks2
+  nwg-look
   gvfs-mtp
   gvfs-smb
   fastfetch
@@ -38,7 +39,6 @@ PACKAGES=(
   systemd-devel
   nemo-fileroller
   fira-code-fonts
-  nemo-extensions
   pocillo-gtk-theme
   libappindicator-gtk3
   cascadia-code-nf-fonts
@@ -79,11 +79,11 @@ CODECS=(
   lame
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
-dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
-dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
-dnf5 install -y $LACT
-dnf5 install -y "${BUILD_PACKAGES[@]}"
-
+dnf5 install --setopt=install_weak_deps=False -y \
+  "${PACKAGES[@]}" \
+  "${CODECS[@]}" \
+  "$LACT"
+dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 # build Falcond
 git clone https://git.pika-os.com/general-packages/falcond.git /tmp/
 cd /tmp/falcond
