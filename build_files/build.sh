@@ -87,7 +87,7 @@ dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUIL
 # build Falcond
 git clone https://git.pika-os.com/general-packages/falcond.git /tmp/
 cd /tmp/falcond
-install -d -m 765 /opt/falcond/conf.d && install -d -m 765 /run/falcond && install -d -m 765 /opt/falcond/profiles 
+install -d -m 765 /opt/falcond/conf.d && install -d -m 765 /run/falcond && install -d -m 765 /usr/share/falcond 
 install -d -m 765 /tmp/zig-cache
 export ZIG_CACHE_DIR=/tmp/zig-cache
 zig build -Doptimize=ReleaseFast \
