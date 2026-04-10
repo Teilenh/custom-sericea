@@ -7,7 +7,8 @@ Wants=graphical.target
 Type=simple
 ExecStart=/usr/bin/falcond \
           -Dconfig-path=/opt/falcond/config.conf \
-          -Dstatus-file=/run/falcond/status
+          -Dstatus-file=/run/falcond/status \
+          -Duser-profiles-dir=/opt/falcond/conf.d
 User=root
 Restart=on-failure
 
