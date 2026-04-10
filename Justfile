@@ -1,4 +1,4 @@
-export image_name := env("IMAGE_NAME", "Custom-sericea") # output image name, usually same as repo name, change as needed
+export image_name := env("IMAGE_NAME", "Custom-sericeah") # output image name, usually same as repo name, change as needed
 export default_tag := env("DEFAULT_TAG", "latest")
 export bib_image := env("BIB_IMAGE", "quay.io/centos-bootc/bootc-image-builder:latest")
 
