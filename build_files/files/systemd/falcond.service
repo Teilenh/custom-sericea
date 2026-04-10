@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/falcond \
+ExecStart=/usr/bin/falcond \
           -Dconfig-path=/opt/falcond/config.conf \
           -Dstatus-file=/run/falcond/status
 Restart=on-failure
