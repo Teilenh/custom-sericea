@@ -108,8 +108,8 @@ dnf5 remove -y "${BUILD_PACKAGES[@]}"
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
-dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
-#dnf5 install --skip-unavailable vicinae
+dnf5 copr enable --chroot fedora-43-x86_64 scottames/vicinae bieszczaders/kernel-cachyos-addons
+#dnf5 install --skip-unavailable vicinae 
 sudo dnf5 install scx-scheds scx-tools
 # Disable COPRs so they don't end up enabled on the final image:
 #dnf5 -y copr disable scottames/vicinae
