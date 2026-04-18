@@ -97,7 +97,7 @@ dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
 sudo dnf5 install -y scx-scheds scx-tools
 # Disable COPRs so they don't end up enabled on the final image:
 #dnf5 -y copr disable scottames/vicinae
-dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons
+dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
 
 ### ICON THEME ARASHI + FONTS
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
