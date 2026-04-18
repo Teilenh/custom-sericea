@@ -94,7 +94,7 @@ flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.githu
 # Use a COPR Example:
 dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
 #dnf5 install --skip-unavailable vicinae 
-sudo dnf5 install --chroot fedora-43-x86_64  scx-scheds scx-tools
+sudo dnf5 install scx-scheds scx-tools
 # Disable COPRs so they don't end up enabled on the final image:
 #dnf5 -y copr disable scottames/vicinae
 dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons
