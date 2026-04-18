@@ -84,22 +84,6 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${CODECS[@]}" \
   "$LACT"
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
-# build Falcond
-git clone https://git.pika-os.com/general-packages/falcond.git /tmp/
-cd /tmp/falcond
-install -d -m 765 /opt/falcond/conf.d && install -d -m 765 /run/falcond && install -d -m 765 /usr/share/falcond 
-install -d -m 765 /tmp/zig-cache
-export ZIG_CACHE_DIR=/tmp/zig-cache
-zig build -Doptimize=ReleaseFast \
-          -Dconfig-path=/opt/falcond/config.conf \
-          -Dstatus-file=/run/falcond/status \
-          -Duser-profiles-dir=/opt/falcond/conf.d
-
-install -m 755 ./zig-out/bin/falcond /usr/bin/falcond
-#install -d -m 765 /usr/local/bin
-#cp ./zig-out/bin/falcond /usr/local/bin/falcond
-cd /
-rm -rf /tmp/falcond
 
 # for a lightweight image
 dnf5 remove -y "${BUILD_PACKAGES[@]}"
