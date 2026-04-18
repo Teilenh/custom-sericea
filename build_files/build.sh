@@ -11,44 +11,53 @@ dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release
 LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-43\.rpm' | head -n 1)
 
 PACKAGES=(
-  fastfetch
-  steam
-  discord
-  lutris
-  kitty
-  btop
-  gamemode
   mpv
-  distrobox
-  wlogout
-  unzip
-  cabextract
-  tumbler
+  git
+  zsh
+  nemo
+  btop
   gvfs
-  gvfs-smb
-  gvfs-mtp
+  unrar
+  unzip
+  kitty
+  steam
+  lutris
+  discord
+  wlogout
   udisks2
-  smartmontools
+  nwg-look
+  gvfs-mtp
+  gvfs-smb
+  fastfetch
+  distrobox
+  cabextract
+  file-roller
+  glib2-devel
   vulkan-tools
+  nemo-preview
+  smartmontools
+  systemd-devel
+  nemo-fileroller
+  fira-code-fonts
+  pocillo-gtk-theme
+  libappindicator-gtk3
+  cascadia-code-nf-fonts
   google-noto-sans-fonts
+  SwayNotificationCenter
   google-noto-serif-fonts
   google-noto-emoji-fonts
   impallari-raleway-fonts
-  fira-code-fonts
-  cascadia-code-nf-fonts
-  pocillo-gtk-theme
-  nemo
-  nemo-extensions
-  nemo-preview
-  file-roller
-  nemo-fileroller
-  unrar
-  folder-color-switcher-nemo
-  SwayNotificationCenter
-  SwayNotificationCenter-zsh-completion
-  zsh
   zsh-syntax-highlighting
-  libappindicator-gtk3
+  folder-color-switcher-nemo
+  SwayNotificationCenter-zsh-completion
+)
+BUILD_PACKAGES=(
+  zig
+  #pkgconf
+  meson
+  ninja
+  gcc
+  make
 )
 RM_PACKAGES=(
   foot
@@ -70,28 +79,29 @@ CODECS=(
   lame
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
-dnf5 install --setopt=install_weak_deps=False -y "${PACKAGES[@]}"
-dnf5 install --setopt=install_weak_deps=False -y "${CODECS[@]}"
-dnf5 install -y $LACT
-# Clean dnf cache and autoremove
-dnf5 clean all
-dnf5 autoremove -y
+dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
+  "${PACKAGES[@]}" \
+  "${CODECS[@]}" \
+  "$LACT"
+dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+
+# for a lightweight image
+dnf5 remove -y "${BUILD_PACKAGES[@]}"
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
-#dnf5 copr enable scottames/vicinae
-#dnf5 install --skip-unavailable vicinae
+# dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
+# dnf5 install -y --skip-unavailable vicinae 
 # Disable COPRs so they don't end up enabled on the final image:
-#dnf5 -y copr disable scottames/vicinae
+# dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
 
 ### ICON THEME ARASHI + FONTS
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
-
-#### Example for enabling a System Unit File
-
-systemctl enable podman.socket
+# Clean dnf
+dnf5 clean all
+dnf5 autoremove -y
