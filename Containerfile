@@ -1,5 +1,5 @@
 LABEL org.opencontainers.image.title="custom-sericea" \
-      org.opencontainers.image.version="latest.20260110" \
+      org.opencontainers.image.version="latest" \
       org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/edit/main/Containerfile" \
       org.opencontainers.image.vendor="no-one" \
       org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
