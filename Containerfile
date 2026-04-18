@@ -30,17 +30,18 @@ FROM quay.io/fedora/fedora-sway-atomic:latest
 ## Uncomment the following line if one desires to make /opt immutable and be able to be used
 ## by the package manager.
 
-# RUN rm /opt && mkdir /opt
+RUN rm /opt && mkdir /opt
 
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
-# RUN mkdir -p /root/.cache/zig
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    /ctx/build.sh
+    export HOME=/tmp && \
+    ZIG_CACHE_DIR=/tmp/zig-cache /ctx/build.sh
+
 
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
 RUN rm -f \
@@ -74,11 +75,18 @@ RUN mkdir -p /usr/share/kitty
 COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/kitty/kitty.conf
 COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/kitty/current-theme.conf
 
-## for systemd rule, config, etc
+## for systemd rule, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
+COPY build_files/files/systemd/falcond.service /etc/systemd/system/falcond.service
 ## zram configuration
-COPY build_files/files/zram/zram-generator.conf /etc/systemd/zram-generator.conf
+COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
 
+## Activate some systemd things
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=cache,dst=/var/log \
+    --mount=type=tmpfs,dst=/tmp \
+    bash /ctx/systemd-service.sh
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
