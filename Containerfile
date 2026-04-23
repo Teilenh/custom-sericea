@@ -40,7 +40,7 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
     export HOME=/tmp && \
-    ZIG_CACHE_DIR=/tmp/zig-cache /ctx/build.sh
+    bash /ctx/build.sh
 
 
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
