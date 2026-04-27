@@ -77,7 +77,6 @@ COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/kitty/cur
 
 ## for systemd rule, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
-COPY build_files/files/systemd/falcond.service /etc/systemd/system/falcond.service
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
 
