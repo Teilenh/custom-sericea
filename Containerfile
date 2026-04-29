@@ -67,12 +67,13 @@ COPY --chmod=644 build_files/files/sway/wall1.jpg /usr/share/sway/wall1.jpg
 COPY --chmod=644 build_files/files/sway/wall2.png /usr/share/sway/wall2.png
 COPY --chmod=644 build_files/files/waybar/config.jsonc /etc/xdg/waybar/config.jsonc
 COPY --chmod=644 build_files/files/waybar/style.css /etc/xdg/waybar/style.css
+RUN mkdir -p /usr/share/rofi/shared
 COPY --chmod=644 build_files/files/rofi/config.rasi /usr/share/rofi/themes/menu.rasi
 COPY --chmod=644 build_files/files/rofi/colors.rasi /usr/share/rofi/shared/colors.rasi
 COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-3.0/settings.ini
 COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-4.0/settings.ini
 
-RUN mkdir -p /usr/share/kitty
+RUN mkdir -p /usr/share/doc/kitty
 COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/doc/kitty/kitty.conf
 COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/doc/kitty/current-theme.conf
 
