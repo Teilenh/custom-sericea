@@ -72,8 +72,8 @@ COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-3.0/settings.ini
 COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-4.0/settings.ini
 
 RUN mkdir -p /usr/share/kitty
-COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/kitty/kitty.conf
-COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/kitty/current-theme.conf
+COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/doc/kitty/kitty.conf
+COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/doc/kitty/current-theme.conf
 
 ## for systemd rule, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
