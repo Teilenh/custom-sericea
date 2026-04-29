@@ -75,7 +75,6 @@ CODECS=(
   gstreamer1-plugins-ugly
   gstreamer1-libav
   mozilla-openh264
-  libavcodec-freeworld
   lame
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
