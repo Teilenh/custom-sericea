@@ -20,7 +20,7 @@ configuration{
 }
 
 /*****----- Global Properties -----*****/
-@theme                          "shared/colors.rasi"
+@theme                          "/usr/share/rofi/shared/colors.rasi"
 
 element-text, element-icon , mode-switcher {
     background-color: inherit;
