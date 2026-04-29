@@ -70,6 +70,8 @@ COPY --chmod=644 build_files/files/waybar/style.css /etc/xdg/waybar/style.css
 RUN mkdir -p /usr/share/rofi/shared
 COPY --chmod=644 build_files/files/rofi/config.rasi /usr/share/rofi/themes/menu.rasi
 COPY --chmod=644 build_files/files/rofi/colors.rasi /usr/share/rofi/shared/colors.rasi
+COPY --chmod=644 build_files/files/rofi/confirm /usr/share/rofi/menu/confirm.rasi
+COPY --chmod=644 build_files/files/rofi/powermenu.rasi /usr/share/rofi/menu/powermenu.rasi
 COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-3.0/settings.ini
 COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-4.0/settings.ini
 
