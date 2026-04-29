@@ -1,7 +1,6 @@
 ### TO-DO
 - meilleurs gestion des logs
 - changé quelque régle de sécu ( notamment firewall )
-- si test unstable concluant avec [falcond](https://git.pika-os.com/general-packages/falcond), merge branch
 
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
@@ -35,8 +34,8 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [x] Zram configuré ( 50% ram, ou maximum 20Gb, au lieu de 1/4 de la ram dispo ) 
 ---
 
-### 🎮 Logiciels à intégrer
-- [x] Steam ( and usage of NonSteamLauncher, to use Epic,Gog directly in Steam )
+### 🎮 Logiciels intégrer
+- [x] Steam ( et usage de NonSteamLauncher, pour Epic et Gog dans Steam)
 - [x] Gamemode
 - [x] Discord, Firefox
 - [x] Protonplus ( Flatpak ) 
@@ -52,7 +51,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [x] Thème GTK3
 - [ ] Thème GTK4/Qt global
 - [x] Pack d’icônes : **[Arashi](https://github.com/0hStormy/Arashi/releases)**
-- [x] Wallpaper par défaut intégré
+- [x] Wallpaper par défaut,
 
 ---
 
