@@ -32,6 +32,7 @@ PACKAGES=(
   distrobox
   cabextract
   file-roller
+  wf-recorder
   glib2-devel
   vulkan-tools
   nemo-preview
