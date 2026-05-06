@@ -7,8 +7,8 @@ set -ouex pipefail
 # RPM FUSION
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# this installs a package from fedora repos
-LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-43\.rpm' | head -n 1)
+# this installs a package from fedora repos and LACT
+LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-44\.rpm' | head -n 1)
 
 PACKAGES=(
   mpv
@@ -21,9 +21,7 @@ PACKAGES=(
   unzip
   kitty
   steam
-  lutris
   discord
-  wlogout
   udisks2
   nwg-look
   gvfs-mtp
@@ -51,10 +49,9 @@ PACKAGES=(
   zsh-syntax-highlighting
   folder-color-switcher-nemo
   SwayNotificationCenter-zsh-completion
+  @virtualization
 )
 BUILD_PACKAGES=(
-  zig
-  #pkgconf
   meson
   ninja
   gcc
