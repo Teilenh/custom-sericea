@@ -3,7 +3,7 @@
 # ==============================
 # CONFIG
 # ==============================
-DIR="/usr/share/rofi"
+DIR="/usr/share/rofi/menu"
 RASI="powermenu.rasi"
 CNFR="confirm.rasi"
 
