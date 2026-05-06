@@ -53,14 +53,14 @@ rofi_cmd() {
         -p "$prompt" \
         -mesg "$mesg" \
         -markup-rows \
-        -theme "$RASI"
+        -theme "$DIR/$RASI"
 }
 
 confirm_cmd() {
     rofi -dmenu \
         -p "Confirmation" \
         -mesg "Are you sure?" \
-        -theme "$CNFR"
+        -theme "$DIR/$CNFR"
 }
 
 confirm_run() {
