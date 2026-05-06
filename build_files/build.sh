@@ -50,6 +50,8 @@ PACKAGES=(
   folder-color-switcher-nemo
   SwayNotificationCenter-zsh-completion
   @virtualization
+  libvirt
+  libvirt-daemon
 )
 BUILD_PACKAGES=(
   meson
