@@ -2,12 +2,23 @@
 
 set -ouex pipefail
 
-### Install packages
+###add repo, and after Install packages
 # this activate some repo, first the free and non-free rpmfusion, 
 # RPM FUSION
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+#VS-codium 
+tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
+[gitlab.com_paulcarroty_vscodium_repo]
+name=gitlab.com_paulcarroty_vscodium_repo
+baseurl=https://paulcarroty.gitlab.io/vscodium-deb-rpm-repo/rpms/
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
+metadata_expire=1h
+EOF
 
-# this installs a package from fedora repos and LACT
+# this list packages to install from fedora repos and LACT
 LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-44\.rpm' | head -n 1)
 
 PACKAGES=(
@@ -27,6 +38,7 @@ PACKAGES=(
   gvfs-mtp
   gvfs-smb
   fastfetch
+  vs-codium
   distrobox
   cabextract
   file-roller
