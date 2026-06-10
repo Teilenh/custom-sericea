@@ -48,6 +48,7 @@ PACKAGES=(
   nemo-preview
   smartmontools
   systemd-devel
+  kernel-headers
   nemo-fileroller
   fira-code-fonts
   pocillo-gtk-theme
@@ -61,15 +62,21 @@ PACKAGES=(
   zsh-syntax-highlighting
   folder-color-switcher-nemo
   SwayNotificationCenter-zsh-completion
-  @virtualization
-  libvirt
-  libvirt-daemon
+  openssl
 )
 BUILD_PACKAGES=(
   meson
   ninja
   gcc
   make
+  cmake
+  gcc-c++
+  kernel-devel
+  perl
+  perl-IPC-Cmd
+  perl-FindBin
+  perl-File-Compare
+  perl-File-Copy
 )
 RM_PACKAGES=(
   foot
@@ -97,7 +104,7 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 # for a lightweight image
-dnf5 remove -y "${BUILD_PACKAGES[@]}"
+#dnf5 remove -y "${BUILD_PACKAGES[@]}"
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
