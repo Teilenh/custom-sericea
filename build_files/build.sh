@@ -61,6 +61,7 @@ PACKAGES=(
   nemo-fileroller
   fira-code-fonts
   pocillo-gtk-theme
+  helium-browser-bin
   libappindicator-gtk3
   cascadia-code-nf-fonts
   google-noto-sans-fonts
@@ -94,7 +95,6 @@ RM_PACKAGES=(
   ModemManager
   tuned
   xarchiver
-  firefox
 )
 CODECS=(
   gstreamer1-plugins-base
