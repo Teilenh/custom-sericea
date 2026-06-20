@@ -3,8 +3,9 @@
 set -ouex pipefail
 
 ###add repo, and after Install packages
-# this activate some repo, first the free and non-free rpmfusion, 
+# this activate some repo, first the free and non-free rpmfusion, and terra
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf install --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
 [gitlab.com_paulcarroty_vscodium_repo]
@@ -31,25 +32,32 @@ PACKAGES=(
   unzip
   kitty
   steam
+  SwayOSD
   mangowm
   discord
   udisks2
   openssl
+  cliphist
+  wlsunset
   nwg-look
   gvfs-mtp
   gvfs-smb
   fastfetch
   vs-codium
   distrobox
+  wlr-randr
   cabextract
+  xfce-polkit
   file-roller
   wf-recorder
   glib2-devel
   vulkan-tools
+  wl-clipboard
   nemo-preview
   smartmontools
   systemd-devel
   kernel-headers
+  zsh-completion
   nemo-fileroller
   fira-code-fonts
   pocillo-gtk-theme
@@ -61,8 +69,8 @@ PACKAGES=(
   google-noto-emoji-fonts
   impallari-raleway-fonts
   zsh-syntax-highlighting
+  sway-audio-idle-inhibit
   folder-color-switcher-nemo
-  SwayNotificationCenter-zsh-completion
 )
 BUILD_PACKAGES=(
   meson
