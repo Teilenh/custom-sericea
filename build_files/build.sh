@@ -4,7 +4,6 @@ set -ouex pipefail
 
 ###add repo, and after Install packages
 # this activate some repo, first the free and non-free rpmfusion, 
-# RPM FUSION
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
@@ -32,9 +31,10 @@ PACKAGES=(
   unzip
   kitty
   steam
+  mangowm
   discord
-  wf-recorder
   udisks2
+  openssl
   nwg-look
   gvfs-mtp
   gvfs-smb
@@ -63,11 +63,8 @@ PACKAGES=(
   zsh-syntax-highlighting
   folder-color-switcher-nemo
   SwayNotificationCenter-zsh-completion
-  sddm-wayland-sway
-  openssl
 )
 BUILD_PACKAGES=(
-  #pkgconf
   meson
   ninja
   gcc
@@ -100,12 +97,11 @@ CODECS=(
   lame
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
-dnf5 copr enable -y tofik/ly
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
-  "${CODECS[@]}"
+  "${CODECS[@]}" #\
+#  "$LACT"
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
-dnf5 copr disable -y tofik/ly
 
 # for a lightweight image
 #dnf5 remove -y "${BUILD_PACKAGES[@]}"
@@ -119,7 +115,7 @@ flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.githu
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
 
-### ICON THEME ARASHi
+### ICON THEME ARASHI + FONTS
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
