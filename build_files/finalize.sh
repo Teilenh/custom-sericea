@@ -1,12 +1,18 @@
-#!/usr/bin/bash
+#!/bin/bash
+set -euo pipefail
 
-set -eoux pipefail
-
+# Clean DNF cache
 dnf5 clean all
-rm -rf /tmp/* || true
-find /var/* -maxdepth 0 -type d \! -name cache -exec rm -fr {} \;
-find /var/cache/* -maxdepth 0 -type d \! -name libdnf5 \! -name rpm-ostree -exec rm -fr {} \;
-mkdir -p /var/tmp
-chmod -R 1777 /var/tmp
 
-ostree container commit
+# Clean temp files
+rm -rf /tmp/* 2>/dev/null || true
+
+# Clean /var but preserve what bootc needs
+# /var/lib, /var/log, /var/cache/libdnf5, /var/cache/rpm-ostree are kept
+find /var/cache/* -maxdepth 0 -type d \
+  ! -name libdnf5 \
+  ! -name rpm-ostree \
+  -exec rm -rf {} + 2>/dev/null || true
+
+mkdir -p /var/tmp
+chmod 1777 /var/tmp

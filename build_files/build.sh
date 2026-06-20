@@ -33,6 +33,7 @@ PACKAGES=(
   kitty
   steam
   discord
+  wf-recorder
   udisks2
   nwg-look
   gvfs-mtp
@@ -65,6 +66,7 @@ PACKAGES=(
   openssl
 )
 BUILD_PACKAGES=(
+  #pkgconf
   meson
   ninja
   gcc
@@ -80,6 +82,7 @@ BUILD_PACKAGES=(
 )
 RM_PACKAGES=(
   foot
+  sddm
   bluez
   cups
   ModemManager
@@ -99,8 +102,7 @@ CODECS=(
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
-  "${CODECS[@]}" #\
-#  "$LACT"
+  "${CODECS[@]}"
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 # for a lightweight image
@@ -115,7 +117,7 @@ flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.githu
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
 
-### ICON THEME ARASHI + FONTS
+### ICON THEME ARASHi
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi

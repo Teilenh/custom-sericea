@@ -82,16 +82,21 @@ COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/doc/kitty
 
 ## for systemd rule, service, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
-COPY build_files/files/systemd-service/xdg-desktop-portal.service /usr/lib/systemd/user/xdg-desktop-portal.service
+## flatpak first-boot setup
+COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/lib/systemd/system/flatpak-setup.service
+COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
+## ly display manager config
+COPY --chmod=644 build_files/files/ly/config.ini /etc/ly/config.ini
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
 
-## Activate some systemd things
+## Activate systemd services + cleanup
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/systemd-service.sh
+    bash /ctx/systemd-service.sh && \
+    bash /ctx/finalize.sh
+
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint

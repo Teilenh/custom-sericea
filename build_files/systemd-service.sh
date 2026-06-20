@@ -2,6 +2,7 @@
 set -euo pipefail
 
 systemctl enable podman.socket
+systemctl enable flatpak-setup.service
 
 #for drv in qemu interface network nodedev nwfilter secret storage
 #do
