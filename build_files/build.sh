@@ -63,6 +63,7 @@ PACKAGES=(
   zsh-syntax-highlighting
   folder-color-switcher-nemo
   SwayNotificationCenter-zsh-completion
+  sddm-wayland-sway
   openssl
 )
 BUILD_PACKAGES=(
@@ -82,7 +83,6 @@ BUILD_PACKAGES=(
 )
 RM_PACKAGES=(
   foot
-  sddm
   bluez
   cups
   ModemManager
@@ -100,10 +100,12 @@ CODECS=(
   lame
 )
 dnf5 remove -y "${RM_PACKAGES[@]}"
+dnf5 copr enable -y tofik/ly
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}"
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+dnf5 copr disable -y tofik/ly
 
 # for a lightweight image
 #dnf5 remove -y "${BUILD_PACKAGES[@]}"

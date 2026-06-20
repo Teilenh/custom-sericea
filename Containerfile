@@ -85,8 +85,6 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 ## flatpak first-boot setup
 COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/lib/systemd/system/flatpak-setup.service
 COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
-## ly display manager config
-COPY --chmod=644 build_files/files/ly/config.ini /etc/ly/config.ini
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
 
