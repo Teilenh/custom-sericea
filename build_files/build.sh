@@ -127,7 +127,7 @@ mkdir -p /opt/helium
 curl -L -o /tmp/helium.tar.xz https://github.com/imputnet/helium-linux/releases/download/0.13.4.1/helium-0.13.4.1-x86_64_linux.tar.xz
 tar -xJf /tmp/helium.tar.xz -C /opt/helium --strip-components=1
 rm -f /tmp/helium.tar.xz
-
+ln -sf /opt/helium/helium /usr/local/bin/helium
 ### CONFIGURE DEFAULT SHELL TO ZSH
 if [ -f /etc/default/useradd ]; then
     sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
