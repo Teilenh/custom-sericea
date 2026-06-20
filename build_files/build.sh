@@ -77,6 +77,7 @@ BUILD_PACKAGES=(
   perl-FindBin
   perl-File-Compare
   perl-File-Copy
+  wget
 )
 RM_PACKAGES=(
   foot
@@ -85,6 +86,7 @@ RM_PACKAGES=(
   ModemManager
   tuned
   xarchiver
+  firefox
 )
 CODECS=(
   gstreamer1-plugins-base
@@ -120,6 +122,19 @@ git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
-# Clean dnf
-dnf5 clean all
-dnf5 autoremove -y
+### INSTALL HELIUM BROWSER
+mkdir -p /opt/helium
+curl -L -o /tmp/helium.tar.xz https://github.com/imputnet/helium-linux/releases/download/0.13.4.1/helium-0.13.4.1-x86_64_linux.tar.xz
+tar -xJf /tmp/helium.tar.xz -C /opt/helium --strip-components=1
+rm -f /tmp/helium.tar.xz
+
+### CONFIGURE DEFAULT SHELL TO ZSH
+if [ -f /etc/default/useradd ]; then
+    sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
+    sed -i 's|SHELL=/usr/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
+else
+    mkdir -p /etc/default
+    echo "SHELL=/bin/zsh" > /etc/default/useradd
+fi
+
+

@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Clean DNF cache
 dnf5 clean all
+dnf5 autoremove -y
 
 # Clean temp files
 rm -rf /tmp/* 2>/dev/null || true

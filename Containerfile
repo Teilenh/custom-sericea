@@ -1,6 +1,6 @@
 LABEL org.opencontainers.image.title="custom-sericea" \
       org.opencontainers.image.version="latest" \
-      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/edit/main/Containerfile" \
+      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/unstable" \
       org.opencontainers.image.vendor="no-one" \
       org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
       org.opencontainers.image.description="simple sway atomic for my daily use"
@@ -41,6 +41,8 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     export HOME=/tmp && \
     bash /ctx/build.sh
+
+RUN ln -s /opt/helium/helium /usr/local/bin/helium
 
 
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
