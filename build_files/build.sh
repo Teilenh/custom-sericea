@@ -6,6 +6,7 @@ set -ouex pipefail
 # this activate some repo, first the free and non-free rpmfusion, 
 # RPM FUSION
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
 [gitlab.com_paulcarroty_vscodium_repo]
@@ -52,6 +53,7 @@ PACKAGES=(
   nemo-fileroller
   fira-code-fonts
   pocillo-gtk-theme
+  helium-browser-bin
   libappindicator-gtk3
   cascadia-code-nf-fonts
   google-noto-sans-fonts
@@ -110,11 +112,10 @@ dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUIL
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
-sudo dnf copr enable imput/helium
-# dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
-dnf5 install -y --skip-unavailable helium-bin
+# dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons imput/helium
+# dnf5 install -y --skip-unavailable helium-bin
 # Disable COPRs so they don't end up enabled on the final image:
-# dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
+# dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae imput/helium
 
 ### ICON THEME ARASHI + FONTS
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
