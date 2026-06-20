@@ -86,6 +86,7 @@ RM_PACKAGES=(
   bluez
   cups
   ModemManager
+  gamemode
   tuned
   xarchiver
 )
