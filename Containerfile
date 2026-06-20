@@ -5,7 +5,6 @@ LABEL org.opencontainers.image.title="custom-sericea" \
       org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
       org.opencontainers.image.description="simple sway atomic for my daily use"
 
-
 # Allow build scripts to be referenced without being copied into the final image
 FROM scratch AS ctx
 COPY build_files /
@@ -42,9 +41,6 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     export HOME=/tmp && \
     bash /ctx/build.sh
 
-RUN ln -s /opt/helium/helium /usr/local/bin/helium
-
-
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
 RUN rm -f \
     /usr/share/sway/config.d/60-bindings-screenshot.conf \
@@ -52,7 +48,6 @@ RUN rm -f \
     /usr/share/sway/config.d/50-rules-policykit-agent.conf \
     /usr/share/sway/config.d/50-rules-pavucontrol.conf \
     /usr/share/sway/config.d/50-rules-browser.conf
-
 
 ### COPY CONFIG FILES
 ## this copy many files for Sway, Rofi, Swaylock, wlogout, Waybar
