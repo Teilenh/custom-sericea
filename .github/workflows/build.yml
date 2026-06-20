@@ -82,8 +82,8 @@ jobs:
           # Default tags are "$DEFAULT_TAG" and "$DEFAULT_TAG.$date".
           tags: |
             type=raw,value=${{ env.DEFAULT_TAG }}
-            type=raw,value=${{ env.DEFAULT_TAG }}.{{date 'YYYYMMDD'}}
-            type=raw,value={{date 'YYYYMMDD'}}
+            type=raw,value=${{ env.DEFAULT_TAG }}.{{date 'YYYYMMDD'}},enable=${{ github.ref_name == 'main' }}
+            type=raw,value={{date 'YYYYMMDD'}},enable=${{ github.ref_name == 'main' }}
             type=sha,enable=${{ github.event_name == 'pull_request' }}
             type=ref,event=pr
           labels: |
@@ -117,6 +117,7 @@ jobs:
           tags: ${{ steps.metadata.outputs.tags }}
           labels: ${{ steps.metadata.outputs.labels }}
           oci: true
+          layers: true
 
       # Rechunk is a script that we use on Universal Blue to make sure there isnt a single huge layer when your image gets published.
       # This does not make your image faster to download, just provides better resumability and fixes a few errors.
