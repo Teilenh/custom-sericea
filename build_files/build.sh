@@ -19,7 +19,7 @@ gpgkey=https://gitlab.com/paulcarroty/vscodium-deb-rpm-repo/raw/master/pub.gpg
 metadata_expire=1h
 EOF
 
-# this list packages to install from fedora repos and LACT
+# this is for LACT, but with terra repo, doesn't need it, I keep just in case
 #LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-44\.rpm' | head -n 1)
 
 PACKAGES=(
@@ -29,6 +29,7 @@ PACKAGES=(
   nemo
   btop
   gvfs
+  lact
   unrar
   unzip
   kitty
