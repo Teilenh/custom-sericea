@@ -28,15 +28,17 @@ PACKAGES=(
   nemo
   btop
   gvfs
+  lact
   unrar
   unzip
   kitty
   steam
   SwayOSD
   mangowm
-  discord
+  vesktop
   udisks2
   openssl
+  falcond
   cliphist
   wlsunset
   nwg-look
@@ -47,10 +49,12 @@ PACKAGES=(
   distrobox
   wlr-randr
   cabextract
+  pokeget-rs
   xfce-polkit
   file-roller
   wf-recorder
   glib2-devel
+  falcond-gui
   vulkan-tools
   wl-clipboard
   nemo-preview
