@@ -112,7 +112,9 @@ dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUIL
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
+sudo dnf copr enable imput/helium
 # dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
+dnf5 install -y --skip-unavailable helium-bin
 # dnf5 install -y --skip-unavailable vicinae 
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
@@ -122,11 +124,6 @@ git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
-### INSTALL HELIUM BROWSER
-mkdir -p /opt/helium
-curl -L -o /tmp/helium.tar.xz https://github.com/imputnet/helium-linux/releases/download/0.13.4.1/helium-0.13.4.1-x86_64_linux.tar.xz
-tar -xJf /tmp/helium.tar.xz -C /opt/helium --strip-components=1
-rm -f /tmp/helium.tar.xz
 ### CONFIGURE DEFAULT SHELL TO ZSH
 if [ -f /etc/default/useradd ]; then
     sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
