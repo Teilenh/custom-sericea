@@ -60,6 +60,7 @@ PACKAGES=(
   nemo-preview
   smartmontools
   systemd-devel
+  noctalia-shell
   kernel-headers
   zsh-completion
   nemo-fileroller
