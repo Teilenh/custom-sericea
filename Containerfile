@@ -80,8 +80,9 @@ RUN mkdir -p /usr/share/doc/kitty
 COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/doc/kitty/kitty.conf
 COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/doc/kitty/current-theme.conf
 
-## for systemd rule, config, sysctl, etc
+## for systemd rule, service, config, sysctl, etc
 COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
+COPY build_files/files/systemd-service/xdg-desktop-portal.service /usr/lib/systemd/user/xdg-desktop-portal.service
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
 
