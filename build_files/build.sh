@@ -96,6 +96,7 @@ BUILD_PACKAGES=(
 )
 RM_PACKAGES=(
   foot
+  gamemode
   cascadia-fonts-all
   bluez
   cups
