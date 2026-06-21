@@ -97,6 +97,7 @@ BUILD_PACKAGES=(
 )
 RM_PACKAGES=(
   foot
+  cascadia-fonts-all
   bluez
   cups
   ModemManager
