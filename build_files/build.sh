@@ -69,7 +69,6 @@ PACKAGES=(
   helium-browser-bin
   rsms-inter-vf-fonts
   libappindicator-gtk3
-  cascadia-code-nf-fonts
   google-noto-sans-fonts
   SwayNotificationCenter
   google-noto-serif-fonts
