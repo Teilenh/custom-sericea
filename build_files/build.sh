@@ -53,7 +53,6 @@ PACKAGES=(
   xfce-polkit
   file-roller
   wf-recorder
-  glib2-devel
   falcond-gui
   vulkan-tools
   wl-clipboard
@@ -90,6 +89,7 @@ BUILD_PACKAGES=(
   gcc-c++
   kernel-devel
   perl
+  glib2-devel
   perl-IPC-Cmd
   perl-FindBin
   perl-File-Compare
@@ -98,7 +98,6 @@ BUILD_PACKAGES=(
 RM_PACKAGES=(
   foot
   gamemode
-  cascadia-fonts-all
   bluez
   cups
   ModemManager
@@ -120,7 +119,8 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}" #\
 #  "$LACT"
-dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+# commented because no need actually, reduce build time, I uncomment these when I need it
+#dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 # for a lightweight image
 #dnf5 remove -y "${BUILD_PACKAGES[@]}"
