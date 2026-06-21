@@ -67,6 +67,7 @@ PACKAGES=(
   fira-code-fonts
   pocillo-gtk-theme
   helium-browser-bin
+  rsms-inter-vf-fonts
   libappindicator-gtk3
   cascadia-code-nf-fonts
   google-noto-sans-fonts
@@ -76,6 +77,7 @@ PACKAGES=(
   impallari-raleway-fonts
   zsh-syntax-highlighting
   sway-audio-idle-inhibit
+  jetbrainsmono-nerd-fonts
   folder-color-switcher-nemo
 )
 BUILD_PACKAGES=(
