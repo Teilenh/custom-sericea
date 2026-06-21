@@ -34,6 +34,7 @@ PACKAGES=(
   unzip
   kitty
   steam
+  pokeget
   SwayOSD
   mangowm
   vesktop
@@ -41,7 +42,6 @@ PACKAGES=(
   openssl
   cliphist
   wlsunset
-  sunshine
   nwg-look
   gvfs-mtp
   gvfs-smb
@@ -50,7 +50,6 @@ PACKAGES=(
   distrobox
   wlr-randr
   cabextract
-  pokeget-rs
   xfce-polkit
   file-roller
   wf-recorder
@@ -63,10 +62,10 @@ PACKAGES=(
   noctalia-qs
   noctalia-shell
   kernel-headers
-  zsh-completion
   nemo-fileroller
   pocillo-gtk-theme
   helium-browser-bin
+  zsh-autosuggestions
   firamono-nerd-fonts
   firacode-nerd-fonts
   rsms-inter-vf-fonts
@@ -80,6 +79,7 @@ PACKAGES=(
   sway-audio-idle-inhibit
   jetbrainsmono-nerd-fonts
   folder-color-switcher-nemo
+  SwayNotificationCenter-zsh-completion
 )
 BUILD_PACKAGES=(
   meson
