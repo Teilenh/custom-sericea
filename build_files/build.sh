@@ -41,6 +41,7 @@ PACKAGES=(
   openssl
   cliphist
   wlsunset
+  sunshine
   nwg-look
   gvfs-mtp
   gvfs-smb
