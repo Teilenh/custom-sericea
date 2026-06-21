@@ -29,6 +29,7 @@ PACKAGES=(
   btop
   gvfs
   lact
+  wget
   unrar
   unzip
   kitty
@@ -38,7 +39,6 @@ PACKAGES=(
   vesktop
   udisks2
   openssl
-  falcond
   cliphist
   wlsunset
   nwg-look
@@ -93,7 +93,6 @@ BUILD_PACKAGES=(
   perl-FindBin
   perl-File-Compare
   perl-File-Copy
-  wget
 )
 RM_PACKAGES=(
   foot
