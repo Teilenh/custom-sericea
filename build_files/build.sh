@@ -64,9 +64,10 @@ PACKAGES=(
   kernel-headers
   zsh-completion
   nemo-fileroller
-  fira-code-fonts
   pocillo-gtk-theme
   helium-browser-bin
+  firamono-nerd-fonts
+  firacode-nerd-fonts
   rsms-inter-vf-fonts
   libappindicator-gtk3
   google-noto-sans-fonts
