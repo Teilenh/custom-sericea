@@ -60,6 +60,7 @@ PACKAGES=(
   nemo-preview
   smartmontools
   systemd-devel
+  noctalia-qs
   noctalia-shell
   kernel-headers
   zsh-completion
