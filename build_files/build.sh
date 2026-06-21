@@ -128,7 +128,7 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
 
 # FLATHUB
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
+#flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
 # Use a COPR Example:
 # dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
 # Disable COPRs so they don't end up enabled on the final image:
