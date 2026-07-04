@@ -91,9 +91,12 @@ COPY --chmod=644 build_files/files/sysusers/falcond.conf /usr/lib/sysusers.d/fal
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/systemd-service.sh && \
+    bash /ctx/systemd-service.sh
+    
+RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=tmpfs,dst=/tmp \
     bash /ctx/finalize.sh
-
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint
