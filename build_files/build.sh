@@ -56,6 +56,7 @@ PACKAGES=(
   pocillo-gtk-theme
   helium-browser-bin
   libappindicator-gtk3
+  twitter-twemoji-fonts
   cascadia-code-nf-fonts
   google-noto-sans-fonts
   SwayNotificationCenter
