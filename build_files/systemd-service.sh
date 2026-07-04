@@ -2,7 +2,6 @@
 set -euo pipefail
 
 systemctl enable podman.socket
-systemctl enable falcond.service
 
 #for drv in qemu interface network nodedev nwfilter secret storage
 #do
