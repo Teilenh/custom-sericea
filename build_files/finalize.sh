@@ -14,6 +14,5 @@ find /var/cache/* -maxdepth 0 -type d \
   ! -name libdnf5 \
   ! -name rpm-ostree \
   -exec rm -rf {} + 2>/dev/null || true
-chown root:falcond /usr/share/falcond/profiles/user
 mkdir -p /var/tmp
 chmod 1777 /var/tmp
