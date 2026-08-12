@@ -10,7 +10,7 @@ rm -rf /tmp/* 2>/dev/null || true
 
 # Clean /var but preserve what bootc needs
 # /var/lib, /var/log, /var/cache/libdnf5, /var/cache/rpm-ostree are kept
-find /var/cache/* -maxdepth 0 -type d \
+find /var/cache -mindepth 1 -maxdepth 1 -type d \
   ! -name libdnf5 \
   ! -name rpm-ostree \
   -exec rm -rf {} + 2>/dev/null || true
