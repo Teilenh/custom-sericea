@@ -84,8 +84,6 @@ COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/li
 COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
 ## zram configuration
 COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
-#sysusers 
-COPY --chmod=644 build_files/files/sysusers/falcond.conf /usr/lib/sysusers.d/falcond.conf
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
