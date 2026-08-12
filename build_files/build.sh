@@ -36,8 +36,7 @@ PACKAGES=(
   steam
   pokeget
   SwayOSD
-  mangowm
-  vesktop
+  discord
   udisks2
   openssl
   cliphist
@@ -53,14 +52,11 @@ PACKAGES=(
   xfce-polkit
   file-roller
   wf-recorder
-  falcond-gui
   vulkan-tools
   wl-clipboard
   nemo-preview
   smartmontools
   systemd-devel
-  noctalia-qs
-  noctalia-shell
   kernel-headers
   nemo-fileroller
   pocillo-gtk-theme
@@ -98,7 +94,6 @@ BUILD_PACKAGES=(
 )
 RM_PACKAGES=(
   foot
-  gamemode
   bluez
   cups
   ModemManager
@@ -134,7 +129,7 @@ flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.f
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
 
-### ICON THEME ARASHI + FONTS
+### ICON THEME ARASHI
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
