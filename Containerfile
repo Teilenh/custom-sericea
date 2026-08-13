@@ -17,7 +17,6 @@ FROM quay.io/fedora/fedora-sway-atomic:latest
 # FROM ghcr.io/ublue-os/bluefin-nvidia:stable
 
 # list of UBlue Images: https://github.com/orgs/ublue-os/packages
-# Fedora base image: quay.io/fedora/fedora-bootc:42
 # Fedora Sway atomic: quay.io/fedora/fedora-sway-atomic:latest
 
 ### [IM]MUTABLE /opt
@@ -83,7 +82,10 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/lib/systemd/system/flatpak-setup.service
 COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
 ## zram configuration
-COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
+COPY build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+## journalctl
+RUN mkdir -p /etc/systemd/journald.conf.d
+COPY files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
