@@ -53,9 +53,18 @@ RUN rm -f \
     /usr/share/sway/config.d/50-rules-browser.conf
 
 ### COPY CONFIG FILES
-## Files under rootfs mirror their final absolute paths. Keeping this as one
+## Files under rootfs mirror their final absolute paths. Keeping this as a small amount of 
 ## instruction preserves layers without creating one expensive layer per file.
-COPY build_files/rootfs/ /
+# Configuration système stable
+COPY build_files/rootfs/etc/ /etc/
+
+# Services et scripts relativement stables
+COPY build_files/rootfs/usr/bin/ /usr/bin/
+COPY build_files/rootfs/usr/lib/ /usr/lib/
+COPY build_files/rootfs/usr/libexec/ /usr/libexec/
+
+# Apparence, thèmes et fonds d’écran plus changeants
+COPY build_files/rootfs/usr/share/ /usr/share/
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
