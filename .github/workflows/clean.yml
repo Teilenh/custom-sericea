@@ -1,0 +1,110 @@
+---
+name: Clean GHCR images
+
+on:
+  schedule:
+    - cron: "30 11 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+concurrency:
+  group: clean-ghcr-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  clean:
+    name: Remove old GHCR image versions
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Delete untagged versions and retain 10 tagged images
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8
+        env:
+          PACKAGE_NAME: ${{ github.event.repository.name }}
+          OWNER: ${{ github.repository_owner }}
+          OWNER_TYPE: ${{ github.event.repository.owner.type }}
+          KEEP_TAGGED: "10"
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = process.env.OWNER;
+            const packageName = process.env.PACKAGE_NAME.toLowerCase();
+            const keepTagged = Number.parseInt(process.env.KEEP_TAGGED, 10);
+            const isOrganization = process.env.OWNER_TYPE === "Organization";
+
+            const listRoute = isOrganization
+              ? "GET /orgs/{org}/packages/{package_type}/{package_name}/versions"
+              : "GET /users/{username}/packages/{package_type}/{package_name}/versions";
+            const deleteRoute = isOrganization
+              ? "DELETE /orgs/{org}/packages/{package_type}/{package_name}/versions/{package_version_id}"
+              : "DELETE /users/{username}/packages/{package_type}/{package_name}/versions/{package_version_id}";
+            const ownerParameter = isOrganization
+              ? { org: owner }
+              : { username: owner };
+
+            const versions = await github.paginate(listRoute, {
+              ...ownerParameter,
+              package_type: "container",
+              package_name: packageName,
+              per_page: 100,
+            });
+
+            versions.sort(
+              (left, right) => new Date(right.created_at) - new Date(left.created_at),
+            );
+
+            const tagsOf = (version) => version.metadata?.container?.tags ?? [];
+            const signatureTag = /^sha256-([0-9a-f]{64})\.(sig|att|sbom)$/;
+            const isSignatureVersion = (version) => {
+              const tags = tagsOf(version);
+              return tags.length > 0 && tags.every((tag) => signatureTag.test(tag));
+            };
+
+            // Cosign signatures are GHCR package versions too. Do not count them
+            // as image releases when selecting the 10 versions to retain.
+            const taggedImages = versions.filter(
+              (version) => tagsOf(version).length > 0 && !isSignatureVersion(version),
+            );
+            const retainedImages = taggedImages.slice(0, keepTagged);
+            const retainedIds = new Set(retainedImages.map((version) => version.id));
+            const retainedDigests = new Set(
+              retainedImages.map((version) => version.name.replace(/^sha256:/, "")),
+            );
+
+            // Retain Cosign artifacts only when they belong to one of the images
+            // selected above. Old signatures are removed with their old image.
+            for (const version of versions.filter(isSignatureVersion)) {
+              const referencedDigests = tagsOf(version)
+                .map((tag) => tag.match(signatureTag)?.[1])
+                .filter(Boolean);
+
+              if (referencedDigests.some((digest) => retainedDigests.has(digest))) {
+                retainedIds.add(version.id);
+              }
+            }
+
+            const versionsToDelete = versions.filter((version) => {
+              const tags = tagsOf(version);
+              return tags.length === 0 || !retainedIds.has(version.id);
+            });
+
+            core.info(
+              `Found ${versions.length} versions: retaining ${retainedImages.length} tagged images plus their Cosign artifacts, and deleting ${versionsToDelete.length}.`,
+            );
+
+            for (const version of versionsToDelete) {
+              const tags = tagsOf(version);
+              core.info(
+                `Deleting version ${version.id} (${version.created_at}), tags: ${tags.join(", ") || "none"}`,
+              );
+
+              await github.request(deleteRoute, {
+                ...ownerParameter,
+                package_type: "container",
+                package_name: packageName,
+                package_version_id: version.id,
+              });
+            }
