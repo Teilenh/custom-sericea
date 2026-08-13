@@ -53,49 +53,9 @@ RUN rm -f \
     /usr/share/sway/config.d/50-rules-browser.conf
 
 ### COPY CONFIG FILES
-## this copy many files for Sway, Rofi, Swaylock, wlogout, Waybar
-COPY --chmod=644 build_files/files/sway/config /etc/sway/config
-COPY --chmod=644 build_files/files/sway/10-variables.conf /usr/share/sway/config.d/10-variables.conf
-COPY --chmod=644 build_files/files/sway/15-colors.conf /usr/share/sway/config.d/15-colors.conf
-COPY --chmod=644 build_files/files/sway/20-outputs.conf /usr/share/sway/config.d/20-outputs.conf
-COPY --chmod=644 build_files/files/sway/30-appearance.conf /usr/share/sway/config.d/30-appearance.conf
-COPY --chmod=644 build_files/files/sway/35-rules.conf /usr/share/sway/config.d/35-rules.conf
-COPY --chmod=644 build_files/files/sway/40-keybinds.conf /usr/share/sway/config.d/40-keybinds.conf
-COPY --chmod=644 build_files/files/sway/96-autostart.conf /usr/share/sway/config.d/96-autostart.conf
-COPY --chmod=644 build_files/files/sway/wall45.png /usr/share/sway/wall45.png
-COPY --chmod=644 build_files/files/sway/wall1.jpg /usr/share/sway/wall1.jpg
-COPY --chmod=644 build_files/files/sway/wall2.png /usr/share/sway/wall2.png
-COPY --chmod=644 build_files/files/waybar/config.jsonc /etc/xdg/waybar/config.jsonc
-COPY --chmod=644 build_files/files/waybar/style.css /etc/xdg/waybar/style.css
-RUN mkdir -p /usr/share/rofi/shared
-COPY --chmod=644 build_files/files/rofi/config.rasi /usr/share/rofi/themes/menu.rasi
-COPY --chmod=644 build_files/files/rofi/colors.rasi /usr/share/rofi/shared/colors.rasi
-COPY --chmod=644 build_files/files/rofi/confirm /usr/share/rofi/menu/confirm.rasi
-COPY --chmod=644 build_files/files/rofi/powermenu.rasi /usr/share/rofi/menu/powermenu.rasi
-COPY --chmod=644 build_files/files/rofi/powermenu.sh /usr/share/rofi/menu/powermenu.sh
-COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-3.0/settings.ini
-COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-4.0/settings.ini
-
-RUN mkdir -p /usr/share/kitty
-COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/kitty/kitty.conf
-COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/kitty/current-theme.conf
-
-## for systemd rule, service, config, sysctl, etc
-COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
-## flatpak first-boot setup
-COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/lib/systemd/system/flatpak-setup.service
-COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
-## zram configuration
-COPY --chmod=644 build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.conf
-## journalctl
-COPY --chmod=644 build_files/files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
-## Sericea-helth
-COPY --chmod=755 build_files/files/scripts/sericea-health.sh /usr/bin/sericea-health
-
-## AUTO UPDATE WITH BOOTC
-COPY --chmod=755 build_files/files/systemd-service/custom-sericea-update.timer /etc/systemd/system/custom-sericea-update.timer
-COPY --chmod=755 build_files/files/systemd-service/custom-sericea-update.service /etc/systemd/system/custom-sericea-update.service
-RUN systemctl enable custom-sericea-update.timer
+## Files under rootfs mirror their final absolute paths. Keeping this as one
+## instruction preserves layers without creating one expensive layer per file.
+COPY build_files/rootfs/ /
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
