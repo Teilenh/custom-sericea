@@ -185,4 +185,3 @@ jobs:
           cosign sign -y \
             --key env://COSIGN_PRIVATE_KEY \
             "${IMAGE_FULL}@${{ steps.push.outputs.digest }}"
-            COSIGN_PRIVATE_KEY: ${{ secrets.SIGNING_SECRET }}
