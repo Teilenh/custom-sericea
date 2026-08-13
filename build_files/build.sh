@@ -96,6 +96,8 @@ RM_PACKAGES=(
   foot
   bluez
   cups
+  qemu-guest-agent
+  qemu-guest-agent
   ModemManager
   tuned
   xarchiver
