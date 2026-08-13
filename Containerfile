@@ -85,7 +85,12 @@ COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec
 COPY build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.conf
 ## journalctl
 RUN mkdir -p /etc/systemd/journald.conf.d
-COPY files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
+COPY build_files/files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
+
+## AUTO UPDATE WITH BOOTC
+COPY build_files/files/systemd-service/custom-sericea-update.timer /etc/systemd/system/custom-sericea-update.timer
+COPY build_files/files/systemd-service/custom-sericea-update.service /etc/systemd/system/custom-sericea-update.service
+RUN systemctl enable custom-sericea-update.timer
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
