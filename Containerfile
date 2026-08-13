@@ -1,14 +1,12 @@
-LABEL org.opencontainers.image.title="custom-sericea" \
-      org.opencontainers.image.version="latest" \
-      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/unstable" \
-      org.opencontainers.image.vendor="no-one" \
-      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
-      org.opencontainers.image.description="simple sway atomic for my daily use"
-
 # Allow build scripts to be referenced without being copied into the final image
-FROM scratch AS ctx
-COPY build_files /
+FROM scratch AS build-script
+COPY build_files/build.sh /build.sh
 
+FROM scratch AS systemd-script
+COPY build_files/systemd-service.sh /systemd-service.sh
+
+FROM scratch AS finalize-script
+COPY build_files/finalize.sh /finalize.sh
 # Base Image
 FROM quay.io/fedora/fedora-sway-atomic:latest
 
@@ -18,6 +16,13 @@ FROM quay.io/fedora/fedora-sway-atomic:latest
 
 # list of UBlue Images: https://github.com/orgs/ublue-os/packages
 # Fedora Sway atomic: quay.io/fedora/fedora-sway-atomic:latest
+
+LABEL org.opencontainers.image.title="custom-sericea" \
+      org.opencontainers.image.version="latest" \
+      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/unstable" \
+      org.opencontainers.image.vendor="no-one" \
+      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
+      org.opencontainers.image.description="simple sway atomic for my daily use"
 
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
@@ -33,12 +38,11 @@ RUN rm /opt && mkdir /opt
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN --mount=type=bind,from=build-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    export HOME=/tmp && \
-    bash /ctx/build.sh
+    HOME=/tmp bash /ctx/build.sh
 
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
 RUN rm -f \
@@ -82,25 +86,24 @@ COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
 COPY --chmod=644 build_files/files/systemd-service/flatpak-setup.service /usr/lib/systemd/system/flatpak-setup.service
 COPY --chmod=755 build_files/files/systemd-service/flatpak-setup.sh /usr/libexec/flatpak-setup.sh
 ## zram configuration
-COPY build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.conf
+COPY --chmod=644 build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.conf
 ## journalctl
-RUN mkdir -p /etc/systemd/journald.conf.d
-COPY build_files/files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
+COPY --chmod=644 build_files/files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
 ## Sericea-helth
-COPY build_files/files/scripts/sericea-health.sh /usr/bin/sericea-health
+COPY --chmod=755 build_files/files/scripts/sericea-health.sh /usr/bin/sericea-health
 
 ## AUTO UPDATE WITH BOOTC
-COPY build_files/files/systemd-service/custom-sericea-update.timer /etc/systemd/system/custom-sericea-update.timer
-COPY build_files/files/systemd-service/custom-sericea-update.service /etc/systemd/system/custom-sericea-update.service
+COPY --chmod=755 build_files/files/systemd-service/custom-sericea-update.timer /etc/systemd/system/custom-sericea-update.timer
+COPY --chmod=755 build_files/files/systemd-service/custom-sericea-update.service /etc/systemd/system/custom-sericea-update.service
 RUN systemctl enable custom-sericea-update.timer
 
 ## Activate systemd services + cleanup
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/systemd-service.sh
+    HOME=/tmp bash /ctx/systemd-service.sh
     
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
     bash /ctx/finalize.sh
