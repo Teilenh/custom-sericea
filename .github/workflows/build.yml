@@ -92,7 +92,7 @@ jobs:
           tags: |
             type=raw,value=${{ env.DEFAULT_TAG }}
             type=raw,value=${{ env.DEFAULT_TAG }}.{{date 'YYYYMMDD'}}
-            type=raw,value={{date 'YYYYMMDD'}}
+            type=sha,prefix=${{ env.DEFAULT_TAG }}-
             type=sha,enable=${{ github.event_name == 'pull_request' }}
             type=ref,event=pr
           labels: |
