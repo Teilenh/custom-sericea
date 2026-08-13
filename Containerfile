@@ -87,7 +87,7 @@ COPY build_files/files/zram/zram-generator.conf /usr/lib/systemd/zram-generator.
 RUN mkdir -p /etc/systemd/journald.conf.d
 COPY build_files/files/systemd-service/10-custom-sericea.conf /usr/lib/systemd/journald.conf.d/15-custom-sericea.conf
 ## Sericea-helth
-RUN install -Dm755 /ctx/build_files/files/scripts/sericea-health.sh /usr/bin/sericea-health
+RUN install -Dm755 build_files/files/scripts/sericea-health.sh /usr/bin/sericea-health
 
 ## AUTO UPDATE WITH BOOTC
 COPY build_files/files/systemd-service/custom-sericea-update.timer /etc/systemd/system/custom-sericea-update.timer
