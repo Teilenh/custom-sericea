@@ -97,7 +97,7 @@ RM_PACKAGES=(
   bluez
   cups
   qemu-guest-agent
-  qemu-guest-agent
+  virtualbox-guest-additions
   ModemManager
   tuned
   xarchiver
