@@ -1,15 +1,12 @@
-LABEL org.opencontainers.image.title="custom-sericea" \
-      org.opencontainers.image.version="latest" \
-      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/edit/main/Containerfile" \
-      org.opencontainers.image.vendor="no-one" \
-      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
-      org.opencontainers.image.description="simple sway atomic for my daily use"
-
-
 # Allow build scripts to be referenced without being copied into the final image
-FROM scratch AS ctx
-COPY build_files /
+FROM scratch AS build-script
+COPY build_files/build.sh /build.sh
 
+FROM scratch AS systemd-script
+COPY build_files/systemd-service.sh /systemd-service.sh
+
+FROM scratch AS finalize-script
+COPY build_files/finalize.sh /finalize.sh
 # Base Image
 FROM quay.io/fedora/fedora-sway-atomic:latest
 
@@ -18,8 +15,14 @@ FROM quay.io/fedora/fedora-sway-atomic:latest
 # FROM ghcr.io/ublue-os/bluefin-nvidia:stable
 
 # list of UBlue Images: https://github.com/orgs/ublue-os/packages
-# Fedora base image: quay.io/fedora/fedora-bootc:42
 # Fedora Sway atomic: quay.io/fedora/fedora-sway-atomic:latest
+
+LABEL org.opencontainers.image.title="custom-sericea" \
+      org.opencontainers.image.version="latest" \
+      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/unstable" \
+      org.opencontainers.image.vendor="no-one" \
+      org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
+      org.opencontainers.image.description="simple sway atomic for my daily use"
 
 ### [IM]MUTABLE /opt
 ## Some bootable images, like Fedora, have /opt symlinked to /var/opt, in order to
@@ -35,13 +38,11 @@ RUN rm /opt && mkdir /opt
 ### MODIFICATIONS
 ## make modifications desired in your image and install packages by modifying the build.sh script
 ## the following RUN directive does all the things required to run "build.sh" as recommended.
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+RUN --mount=type=bind,from=build-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    export HOME=/tmp && \
-    bash /ctx/build.sh
-
+    HOME=/tmp bash /ctx/build.sh
 
 ### REMOVE FEDORA DEFAULT SWAY BINDINGS
 RUN rm -f \
@@ -51,47 +52,30 @@ RUN rm -f \
     /usr/share/sway/config.d/50-rules-pavucontrol.conf \
     /usr/share/sway/config.d/50-rules-browser.conf
 
-
 ### COPY CONFIG FILES
-## this copy many files for Sway, Rofi, Swaylock, wlogout, Waybar
-COPY --chmod=644 build_files/files/sway/config /etc/sway/config
-COPY --chmod=644 build_files/files/sway/10-variables.conf /usr/share/sway/config.d/10-variables.conf
-COPY --chmod=644 build_files/files/sway/15-colors.conf /usr/share/sway/config.d/15-colors.conf
-COPY --chmod=644 build_files/files/sway/20-outputs.conf /usr/share/sway/config.d/20-outputs.conf
-COPY --chmod=644 build_files/files/sway/30-appearance.conf /usr/share/sway/config.d/30-appearance.conf
-COPY --chmod=644 build_files/files/sway/35-rules.conf /usr/share/sway/config.d/35-rules.conf
-COPY --chmod=644 build_files/files/sway/40-keybinds.conf /usr/share/sway/config.d/40-keybinds.conf
-COPY --chmod=644 build_files/files/sway/96-autostart.conf /usr/share/sway/config.d/96-autostart.conf
-COPY --chmod=644 build_files/files/sway/wall45.png /usr/share/sway/wall45.png
-COPY --chmod=644 build_files/files/sway/wall1.jpg /usr/share/sway/wall1.jpg
-COPY --chmod=644 build_files/files/sway/wall2.png /usr/share/sway/wall2.png
-COPY --chmod=644 build_files/files/waybar/config.jsonc /etc/xdg/waybar/config.jsonc
-COPY --chmod=644 build_files/files/waybar/style.css /etc/xdg/waybar/style.css
-RUN mkdir -p /usr/share/rofi/shared
-COPY --chmod=644 build_files/files/rofi/config.rasi /usr/share/rofi/themes/menu.rasi
-COPY --chmod=644 build_files/files/rofi/colors.rasi /usr/share/rofi/shared/colors.rasi
-COPY --chmod=644 build_files/files/rofi/confirm /usr/share/rofi/menu/confirm.rasi
-COPY --chmod=644 build_files/files/rofi/powermenu.rasi /usr/share/rofi/menu/powermenu.rasi
-COPY --chmod=644 build_files/files/rofi/powermenu.sh /usr/share/rofi/menu/powermenu.sh
-COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-3.0/settings.ini
-COPY --chmod=644 build_files/files/gtk/settings.ini /etc/gtk-4.0/settings.ini
+## Files under rootfs mirror their final absolute paths. Keeping this as a small amount of 
+## instruction preserves layers without creating one expensive layer per file.
+# Configuration système stable
+COPY build_files/rootfs/etc/ /etc/
 
-RUN mkdir -p /usr/share/doc/kitty
-COPY --chmod=644 build_files/files/kitty/kitty.conf /usr/share/doc/kitty/kitty.conf
-COPY --chmod=644 build_files/files/kitty/current-theme.conf /usr/share/doc/kitty/current-theme.conf
+# Services et scripts relativement stables
+COPY build_files/rootfs/usr/bin/ /usr/bin/
+COPY build_files/rootfs/usr/lib/ /usr/lib/
+COPY build_files/rootfs/usr/libexec/ /usr/libexec/
 
-## for systemd rule, service, config, sysctl, etc
-COPY build_files/files/sysctl/99-custom.conf /etc/sysctl.d/99-custom.conf
-COPY build_files/files/systemd-service/xdg-desktop-portal.service /usr/lib/systemd/user/xdg-desktop-portal.service
-## zram configuration
-COPY build_files/files/zram/zram-generator.conf /etc/systemd/system/zram-generator.conf
+# Apparence, thèmes et fonds d’écran plus changeants
+COPY build_files/rootfs/usr/share/ /usr/share/
 
-## Activate some systemd things
-RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
+## Activate systemd services + cleanup
+RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
     --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/systemd-service.sh
+    HOME=/tmp bash /ctx/systemd-service.sh
+    
+RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=tmpfs,dst=/tmp \
+    bash /ctx/finalize.sh
 ### LINTING
 ## Verify final image and contents are correct.
 RUN bootc container lint

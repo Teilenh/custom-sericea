@@ -21,7 +21,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 - [x] SELinux actif (set par défaut avec Fedora)
 - [X] Liste de logiciel préinstaller
-- [X] Gamemode ( branche unstable avec [Falcond](https://git.pika-os.com/general-packages/falcond) )
+- [X] Gamemode
 - [X] Sway est configuré, ainsi que waybar, rofi, Icones, et un Wallpaper par défault
 - [X] Configuration par défault Zram modifier
 
@@ -40,14 +40,14 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 - [x] Discord, Firefox
 - [x] Protonplus ( Flatpak ) 
 - [ ] Virt-manager / QEMU / libvirt / spice-vdagent (VM)
-- [x] Outils : neovim, git, **fastfetch**, btop, etc.
+- [x] Outils : git, **fastfetch**, btop, etc.
 
 ---
 
 ### 🖥️ Environnement Sway & UI
 - [x] Configuration Sway (keybinds, rules, etc)
 - [x] Waybar : topbar + modules personnalisés
-- [x] rofi configurés ( a méditer pour rofi, j'envisage une autre option - vicinae)
+- [x] rofi configurés
 - [x] Thème GTK3
 - [ ] Thème GTK4/Qt global
 - [x] Pack d’icônes : **[Arashi](https://github.com/0hStormy/Arashi/releases)**
@@ -58,7 +58,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 ---
 
 ### 🔒 Hardening additionnel (léger)
-- [ ] Vérification journald (rotation, taille, compression)
+- [x] Vérification journald (rotation, taille, compression)
 - [ ] Firewalld : zones et règles affinées
 
 ---
