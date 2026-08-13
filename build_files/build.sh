@@ -137,12 +137,12 @@ mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 
 ### CONFIGURE DEFAULT SHELL TO ZSH
-if [ -f /etc/default/useradd ]; then
-    sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
-    sed -i 's|SHELL=/usr/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
-else
-    mkdir -p /etc/default
-    echo "SHELL=/bin/zsh" > /etc/default/useradd
-fi
+#if [ -f /etc/default/useradd ]; then
+#    sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
+#    sed -i 's|SHELL=/usr/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
+#else
+#    mkdir -p /etc/default
+#    echo "SHELL=/bin/zsh" > /etc/default/useradd
+#fi
 
 
