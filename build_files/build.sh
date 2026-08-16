@@ -29,12 +29,14 @@ PACKAGES=(
   btop
   gvfs
   lact
+  cava
   wget
   unrar
   unzip
   kitty
   steam
   pokeget
+  cmatrix
   SwayOSD
   discord
   udisks2
