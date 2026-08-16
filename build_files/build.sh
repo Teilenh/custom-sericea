@@ -31,10 +31,14 @@ PACKAGES=(
   lact
   cava
   wget
+  nmap
   unrar
   unzip
   kitty
   steam
+  socat
+  netcat
+  iperf3
   pokeget
   cmatrix
   SwayOSD
@@ -50,6 +54,7 @@ PACKAGES=(
   vs-codium
   distrobox
   wlr-randr
+  tracroute
   cabextract
   xfce-polkit
   file-roller
@@ -58,6 +63,7 @@ PACKAGES=(
   wl-clipboard
   nemo-preview
   smartmontools
+  wireshark-cli
   systemd-devel
   kernel-headers
   nemo-fileroller
