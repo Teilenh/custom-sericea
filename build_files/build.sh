@@ -77,12 +77,14 @@ PACKAGES=(
   google-noto-sans-fonts
   SwayNotificationCenter
   google-noto-serif-fonts
-  google-noto-emoji-fonts
   impallari-raleway-fonts
   zsh-syntax-highlighting
   sway-audio-idle-inhibit
   jetbrainsmono-nerd-fonts
   folder-color-switcher-nemo
+  google-noto-sans-math-fonts 
+  google-noto-color-emoji-fonts 
+  google-noto-sans-symbols-2-fonts
   SwayNotificationCenter-zsh-completion
 )
 BUILD_PACKAGES=(
@@ -109,6 +111,8 @@ RM_PACKAGES=(
   ModemManager
   tuned
   xarchiver
+  google-noto-emoji-fonts
+  gdouros-symbola-fonts
 )
 CODECS=(
   gstreamer1-plugins-base
