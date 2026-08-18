@@ -6,6 +6,8 @@ set -ouex pipefail
 # this activate some repo, first the free and non-free rpmfusion, and terra
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
+
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
 [gitlab.com_paulcarroty_vscodium_repo]
@@ -67,6 +69,7 @@ PACKAGES=(
   systemd-devel
   kernel-headers
   nemo-fileroller
+  cloudflare-warp
   pocillo-gtk-theme
   helium-browser-bin
   zsh-autosuggestions
