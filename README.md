@@ -4,12 +4,12 @@
 
 # 🎯 Projet : Image Fedora Atomic Sway personnalisée (Desktop AMD)
 
-## 🧩 Objectif
+## Objectif
 Me baser sur l'**image Fedora Atomic Sway ( Sericea )**, avoir l'os parfait OOTB ( pour moi ) et fonctionnel
 tout en conservant un environnement **performant, reproductible**, avec de légére optimisation pour **le gaming**, tout en conservant la nature **immutable** d'une Fedora Atomic.
 ---
 
-## 🧱 Structure du dépôt
+## Structure du dépôt
 Basé sur le **template uBlue**, avec les éléments principaux :
 - `Containerfile` — définition de l’image custom, héritant de `fedora-atomic-sway`
 - `build.sh` - Script majeur, il list et install ( avec dnf5 ) les logicielle, compile si besoin, vas cherche un pack d'icone etc
@@ -29,12 +29,12 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ## 🚧 Étapes à venir
 
-### 🧠 Optimisations système
+### Optimisations système
 - [ ] TO DO
 - [x] Zram configuré ( 50% ram, ou maximum 20Gb, au lieu de 1/4 de la ram dispo ) 
 ---
 
-### 🎮 Logiciels intégrer
+### Logiciels intégrer
 - [x] Steam ( et usage de NonSteamLauncher, pour Epic et Gog dans Steam)
 - [x] Gamemode
 - [x] Discord, Firefox
@@ -44,7 +44,7 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ---
 
-### 🖥️ Environnement Sway & UI
+### Environnement Sway & UI
 - [x] Configuration Sway (keybinds, rules, etc)
 - [x] Waybar : topbar + modules personnalisés
 - [x] rofi configurés
@@ -57,12 +57,12 @@ Basé sur le **template uBlue**, avec les éléments principaux :
 
 ---
 
-### 🔒 Hardening additionnel (léger)
+### Hardening additionnel (léger)
 - [x] Vérification journald (rotation, taille, compression)
 - [ ] Firewalld : zones et règles affinées
 
 ---
 
-## 📘 Information 
+## Information 
 - Image de base : Fedora sway Atomic
 - point clé : réactif et élégant, légère opti

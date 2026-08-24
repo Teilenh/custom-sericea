@@ -6,6 +6,8 @@ set -ouex pipefail
 # this activate some repo, first the free and non-free rpmfusion, and terra
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
+
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
 [gitlab.com_paulcarroty_vscodium_repo]
@@ -29,12 +31,18 @@ PACKAGES=(
   btop
   gvfs
   lact
+  cava
   wget
+  nmap
   unrar
   unzip
   kitty
   steam
+  socat
+  netcat
+  iperf3
   pokeget
+  cmatrix
   SwayOSD
   discord
   udisks2
@@ -48,6 +56,7 @@ PACKAGES=(
   vs-codium
   distrobox
   wlr-randr
+  tracroute
   cabextract
   xfce-polkit
   file-roller
@@ -56,9 +65,11 @@ PACKAGES=(
   wl-clipboard
   nemo-preview
   smartmontools
+  wireshark-cli
   systemd-devel
   kernel-headers
   nemo-fileroller
+  cloudflare-warp
   pocillo-gtk-theme
   helium-browser-bin
   zsh-autosuggestions
@@ -69,12 +80,14 @@ PACKAGES=(
   google-noto-sans-fonts
   SwayNotificationCenter
   google-noto-serif-fonts
-  google-noto-emoji-fonts
   impallari-raleway-fonts
   zsh-syntax-highlighting
   sway-audio-idle-inhibit
   jetbrainsmono-nerd-fonts
   folder-color-switcher-nemo
+  google-noto-sans-math-fonts 
+  google-noto-color-emoji-fonts 
+  google-noto-sans-symbols-2-fonts
   SwayNotificationCenter-zsh-completion
 )
 BUILD_PACKAGES=(
@@ -101,6 +114,8 @@ RM_PACKAGES=(
   ModemManager
   tuned
   xarchiver
+  google-noto-emoji-fonts
+  gdouros-symbola-fonts
 )
 CODECS=(
   gstreamer1-plugins-base
