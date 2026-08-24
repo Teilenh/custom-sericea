@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+set -uo pipefail
+
+usage() {
+    cat <<'EOF'
+Usage:
+  rpm-pkg-check PAQUET [PAQUET...]
+
+Exemples:
+  rpm-pkg-check discord firefox steam
+  rpm-pkg-check vkBasalt libFAudio scx-scheds
+  rpm-pkg-check vkBasalt.x86_64 vkBasalt.i686
+EOF
+}
+
+if (( $# == 0 )); then
+    usage
+    exit 1
+fi
+
+if [[ "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+PACKAGES=("$@")
+
+export LC_ALL=C
+
+if [[ -t 1 ]]; then
+    GREEN=$'\033[32m'
+    YELLOW=$'\033[33m'
+    RED=$'\033[31m'
+    RESET=$'\033[0m'
+else
+    GREEN=""
+    YELLOW=""
+    RED=""
+    RESET=""
+fi
+
+printf "\n%-36s %-14s %-36s %s\n" \
+    "PAQUET" \
+    "INSTALLÉ" \
+    "VERSION / DÉPÔT" \
+    "ÉTAT"
+
+printf "%-36s %-14s %-36s %s\n" \
+    "------------------------------------" \
+    "--------------" \
+    "------------------------------------" \
+    "----------------"
+
+for package in "${PACKAGES[@]}"; do
+    if rpm -q "$package" >/dev/null 2>&1; then
+        versions="$(
+            rpm -q \
+                --queryformat '%{VERSION}-%{RELEASE}.%{ARCH}\n' \
+                "$package" 2>/dev/null |
+            sort -u |
+            paste -sd ',' -
+        )"
+
+        printf "%-36s ${GREEN}%-14s${RESET} %-36s %s\n" \
+            "$package" \
+            "oui" \
+            "$versions" \
+            "présent"
+
+        continue
+    fi
+
+    repositories="$(
+        dnf5 -q repoquery \
+            --available \
+            --queryformat '%{repoid}\n' \
+            "$package" 2>/dev/null |
+        sort -u |
+        paste -sd ',' -
+    )"
+
+    if [[ -n "$repositories" ]]; then
+        printf "%-36s ${YELLOW}%-14s${RESET} %-36s %s\n" \
+            "$package" \
+            "non" \
+            "$repositories" \
+            "disponible"
+    else
+        printf "%-36s ${RED}%-14s${RESET} %-36s %s\n" \
+            "$package" \
+            "non" \
+            "—" \
+            "introuvable"
+    fi
+done
+
+printf "\n"
