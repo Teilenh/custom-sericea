@@ -101,7 +101,6 @@ GAMING_PACKAGES=(
   libinput-utils
   vulkan-low-latency-layer
 )
-
 SCHED_EXT=(
   scx-scheds
   scx-tools
