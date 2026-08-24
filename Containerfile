@@ -19,7 +19,7 @@ FROM quay.io/fedora/fedora-sway-atomic:latest
 
 LABEL org.opencontainers.image.title="custom-sericea" \
       org.opencontainers.image.version="latest" \
-      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/unstable" \
+      org.opencontainers.image.source="https://github.com/Teilenh/custom-sericea/main" \
       org.opencontainers.image.vendor="no-one" \
       org.opencontainers.image.url="https://github.com/Teilenh/custom-sericea" \
       org.opencontainers.image.description="simple sway atomic for my daily use"
