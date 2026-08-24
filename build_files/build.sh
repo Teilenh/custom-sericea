@@ -90,6 +90,22 @@ PACKAGES=(
   google-noto-sans-symbols-2-fonts
   SwayNotificationCenter-zsh-completion
 )
+GAMING_PACKAGES=(
+  vkBasalt.x86_64
+  vkBasalt.i686
+  libFAudio.x86_64
+  libFAudio.i686
+  lm_sensors
+  kernel-tools
+  amdsmi
+  libinput-utils
+  vulkan-low-latency-layer
+)
+
+SCHED_EXT=(
+  scx-scheds
+  scx-tools
+)
 BUILD_PACKAGES=(
   meson
   ninja
@@ -130,7 +146,8 @@ CODECS=(
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
-  "${CODECS[@]}" #\
+  "${CODECS[@]}" \
+  "${GAMING_PACKAGES[@]}" "${SCHED_EXT[@]}"
 #  "$LACT"
 # commented because no need actually, reduce build time, I uncomment these when I need it
 #dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
