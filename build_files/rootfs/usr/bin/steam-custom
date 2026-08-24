@@ -1,0 +1,30 @@
+#!/usr/bin/bash
+
+STEAM_CONFIG="$HOME/.steam/steam/steam_dev.cfg"
+SHADER_SETTING="unShaderBackgroundProcessingThreads"
+
+# Accélérer le précalcul des shaders : CPU logiques - 2, entre 1 et 16.
+if [[ ! -f "$STEAM_CONFIG" ]] ||
+   ! grep -Fq "$SHADER_SETTING" "$STEAM_CONFIG"; then
+
+    threads=$(( $(nproc) - 2 ))
+
+    if (( threads > 14 )); then
+        threads=14
+    elif (( threads < 1 )); then
+        threads=1
+    fi
+
+    mkdir -p "$(dirname "$STEAM_CONFIG")"
+    printf '%s %d\n' "$SHADER_SETTING" "$threads" >> "$STEAM_CONFIG"
+fi
+
+# Compatibilité Steam Input sous Wayland, uniquement si Extest est présent.
+EXTEST="/usr/lib/extest/libextest.so"
+
+if [[ "$XDG_SESSION_TYPE" == "wayland" && -f "$EXTEST" ]]; then
+    exec env LD_PRELOAD="$EXTEST${LD_PRELOAD:+:$LD_PRELOAD}" \
+        /usr/bin/steam "$@"
+else
+    exec /usr/bin/steam "$@"
+fi
