@@ -59,7 +59,7 @@ RUN rm -f \
 COPY build_files/rootfs/etc/ /etc/
 
 # Services et scripts relativement stables
-COPY build_files/rootfs/usr/bin/ /usr/bin/
+COPY --chmod=0755 build_files/rootfs/usr/bin/ /usr/bin/
 COPY build_files/rootfs/usr/lib/ /usr/lib/
 COPY build_files/rootfs/usr/libexec/ /usr/libexec/
 
