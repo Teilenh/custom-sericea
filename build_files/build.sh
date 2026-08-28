@@ -149,7 +149,7 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${GAMING_PACKAGES[@]}" "${SCHED_EXT[@]}"
 #  "$LACT"
 # commented because no need actually, reduce build time, I uncomment these when I need it
-#dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 # for a lightweight image
 #dnf5 remove -y "${BUILD_PACKAGES[@]}"
