@@ -5,7 +5,14 @@ set -ouex pipefail
 ###add repo, and after Install packages
 # this activate some repo, first the free and non-free rpmfusion, and terra
 dnf5 install -y https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-dnf install -y --nogpgcheck --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' terra-release
+dnf5 install -y \
+  --nogpgcheck \
+  --repofrompath 'terra,https://repos.fyralabs.com/terra$releasever' \
+  terra-release \
+  terra-release-mesa
+dnf5 config-manager setopt terra-mesa.enabled=false
+
+
 curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
 
 #VS-codium 
@@ -23,6 +30,20 @@ EOF
 # this list packages to install from fedora repos and LACT
 #LACT=$(curl -s https://api.github.com/repos/ilya-zlobintsev/LACT/releases/latest | grep -oP 'https://github\.com/ilya-zlobintsev/LACT/releases/download/[^"]*lact-headless[^"]*fedora-44\.rpm' | head -n 1)
 
+MESA_TERRA_PACKAGES=(
+  mesa-filesystem.x86_64
+  mesa-filesystem.i686
+  mesa-dri-drivers.x86_64
+  mesa-dri-drivers.i686
+  mesa-libEGL.x86_64
+  mesa-libEGL.i686
+  mesa-libGL.x86_64
+  mesa-libGL.i686
+  mesa-libgbm.x86_64
+  mesa-libgbm.i686
+  mesa-vulkan-drivers.x86_64
+  mesa-vulkan-drivers.i686
+)
 PACKAGES=(
   mpv
   git
@@ -150,7 +171,30 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
 #  "$LACT"
 # commented because no need actually, reduce build time, I uncomment these when I need it
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+dnf5 swap -y \
+  --from-repo=terra-mesa \
+  mesa-filesystem \
+  mesa-filesystem
 
+dnf5 install -y \
+  --enable-repo=terra-mesa \
+  --setopt=install_weak_deps=False \
+  "${MESA_TERRA_PACKAGES[@]}"
+  
+dnf5 versionlock add \
+  mesa-filesystem \
+  mesa-dri-drivers \
+  mesa-libEGL \
+  mesa-libGL \
+  mesa-libgbm \
+  mesa-vulkan-drivers
+  
+echo "Mesa packages selected for the image:"
+rpm -q \
+  --queryformat '%{NAME}.%{ARCH} %{EPOCHNUM}:%{VERSION}-%{RELEASE} | %{VENDOR}\n' \
+  "${MESA_TERRA_PACKAGES[@]}"
+echo "Mesa versionlocks:"
+dnf5 versionlock list
 # for a lightweight image
 #dnf5 remove -y "${BUILD_PACKAGES[@]}"
 
