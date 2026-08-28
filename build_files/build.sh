@@ -141,6 +141,16 @@ BUILD_PACKAGES=(
   perl-File-Compare
   perl-File-Copy
 )
+CODECS=(
+  gstreamer1-plugins-base
+  gstreamer1-plugins-good
+  gstreamer1-plugins-bad-free
+  gstreamer1-plugins-bad-freeworld
+  gstreamer1-plugins-ugly
+  gstreamer1-libav
+  mozilla-openh264
+  lame
+)
 RM_PACKAGES=(
   foot
   bluez
@@ -153,21 +163,12 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
-CODECS=(
-  gstreamer1-plugins-base
-  gstreamer1-plugins-good
-  gstreamer1-plugins-bad-free
-  gstreamer1-plugins-bad-freeworld
-  gstreamer1-plugins-ugly
-  gstreamer1-libav
-  mozilla-openh264
-  lame
-)
+sudo dnf install mesa-va-drivers-freeworld --allowerasing 
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}" \
-  "${GAMING_PACKAGES[@]}" "${SCHED_EXT[@]}"
+  "${GAMING_PACKAGES[@]}"  "${SCHED_EXT[@]}"
 #  "$LACT"
 # commented because no need actually, reduce build time, I uncomment these when I need it
 dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
