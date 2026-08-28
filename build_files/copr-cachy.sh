@@ -2,8 +2,8 @@
 
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y linux-firmware
 # Add CachyOS COPR repository
-dnf5 copr enable bieszczaders/kernel-cachyos
-dnf5 copr enable bieszczaders/kernel-cachyos-addons
+dnf5 -y copr enable bieszczaders/kernel-cachyos
+dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 
 # Install CachyOS kernel
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y kernel-cachyos kernel-cachyos-devel
