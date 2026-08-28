@@ -1,11 +1,42 @@
-## script for copr of cachy
+#!/usr/bin/bash
+
+## script for copr of cachy and install
+set -euo pipefail
 
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y linux-firmware
 # Add CachyOS COPR repository
 dnf5 -y copr enable bieszczaders/kernel-cachyos
 dnf5 -y copr enable bieszczaders/kernel-cachyos-addons
 
-# Install CachyOS kernel
-dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y kernel-cachyos kernel-cachyos-devel
-# enable the above policy to load kernel modules.
-setsebool -P domain_kernel_load_modules on
+
+HOOK_DIR=/usr/lib/kernel/install.d
+HOOKS=(05-rpmostree.install 50-dracut.install)
+
+restore_hooks() {
+    for hook in "${HOOKS[@]}"; do
+        if [ -e "$HOOK_DIR/$hook.disabled" ]; then
+            mv -f "$HOOK_DIR/$hook.disabled" "$HOOK_DIR/$hook"
+        fi
+    done
+}
+
+trap restore_hooks EXIT
+
+# Désactiver temporairement la génération automatique de l’initramfs
+for hook in "${HOOKS[@]}"; do
+    if [ -e "$HOOK_DIR/$hook" ]; then
+        mv "$HOOK_DIR/$hook" "$HOOK_DIR/$hook.disabled"
+        printf '%s\n' '#!/bin/sh' 'exit 0' > "$HOOK_DIR/$hook"
+        chmod +x "$HOOK_DIR/$hook"
+    fi
+done
+
+# Installer le noyau CachyOS
+dnf5 install \
+  --setopt=install_weak_deps=False \
+  --skip-unavailable \
+  -y kernel-cachyos kernel-cachyos-devel
+
+# Générer modules.dep avant de restaurer les hooks
+KVER="$(find /usr/lib/modules -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n1)"
+depmod -a "$KVER"
