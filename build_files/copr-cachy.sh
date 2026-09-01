@@ -45,3 +45,5 @@ dnf5 remove -y \
 # Générer modules.dep avant de restaurer les hooks
 KVER="$(find /usr/lib/modules -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n1)"
 depmod -a "$KVER"
+echo "Kernel directories:"
+find /usr/lib/modules -mindepth 1 -maxdepth 1 -type d -printf '%f\n'
