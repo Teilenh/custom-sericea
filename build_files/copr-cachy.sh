@@ -36,7 +36,12 @@ dnf5 install \
   --setopt=install_weak_deps=False \
   --skip-unavailable \
   -y kernel-cachyos kernel-cachyos-devel
-
+  
+dnf5 remove -y \
+  kernel \
+  kernel-modules \
+  kernel-devel \
+  || true
 # Générer modules.dep avant de restaurer les hooks
 KVER="$(find /usr/lib/modules -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort -V | tail -n1)"
 depmod -a "$KVER"
