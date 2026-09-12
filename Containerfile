@@ -83,17 +83,17 @@ RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
     HOME=/tmp bash /ctx/systemd-service.sh
-    
-RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
-    --mount=type=cache,dst=/var/cache \
-    --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/finalize.sh
 
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=install-kernel,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     bash /ctx/install-kernel.sh
+
+RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
+    --mount=type=cache,dst=/var/cache \
+    --mount=type=tmpfs,dst=/tmp \
+    bash /ctx/finalize.sh
 
 ### LINTING
 ## Verify final image and contents are correct.
