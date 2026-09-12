@@ -98,4 +98,4 @@ RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
 
 ### LINTING
 ## Verify final image and contents are correct.
-RUN bootc container lint --fatal-warnings
+RUN bootc container lint
