@@ -48,5 +48,4 @@ rm -rf /usr/lib/modules/*
 
 dnf5 install -y \
     --setopt=install_weak_deps=False \
-    kernel-cachyos \
-    kernel-cachyos-devel
+    kernel-cachyos
