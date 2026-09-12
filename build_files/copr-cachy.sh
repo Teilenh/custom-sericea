@@ -49,3 +49,4 @@ rm -rf /usr/lib/modules/*
 dnf5 install -y \
     --setopt=install_weak_deps=False \
     kernel-cachyos
+setsebool -P domain_kernel_load_modules on
