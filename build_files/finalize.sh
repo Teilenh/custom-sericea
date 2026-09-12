@@ -8,7 +8,8 @@ rm -rf \
     /var/cache/dnf \
     /var/cache/libdnf5 \
     /var/lib/dnf/repos
-
+    /var/lib/rpm-state
+    
 rm -f \
     /var/log/dnf* \
     /var/log/hawkey.log
@@ -17,7 +18,8 @@ rm -f \
 rm -rf \
     /run/dnf \
     /run/selinux-policy
-
+    /run/setrans
+    
 # /tmp est déjà monté en tmpfs durant ce RUN,
 # mais garder ça ne pose pas problème.
 find /tmp -mindepth 1 -delete
