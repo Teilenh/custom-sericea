@@ -5,9 +5,11 @@ dnf5 config-manager setopt keepcache=0
 dnf5 clean all
 
 rm -rf \
-    /var/cache/dnf \
-    /var/cache/libdnf5 \
-    /var/lib/dnf/repos
+    /run/dnf \
+    /run/selinux-policy \
+    /run/setrans* \
+    /var/lib/dnf/repos \
+    /var/lib/rpm-state*
     
 rm -f \
     /var/log/dnf* \
