@@ -97,4 +97,4 @@ RUN --mount=type=cache,dst=/var/cache \
 
 ### LINTING
 ## Verify final image and contents are correct.
-RUN bootc container lint
+RUN bootc container lint --fatal-warnings
