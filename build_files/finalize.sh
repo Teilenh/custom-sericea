@@ -17,7 +17,6 @@ rm -f \
 rm -rf \
     /run/dnf \
     /run/selinux-policy
-    /run/setrans
     
 # /tmp est déjà monté en tmpfs durant ce RUN,
 # mais garder ça ne pose pas problème.
