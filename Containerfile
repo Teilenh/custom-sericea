@@ -75,6 +75,7 @@ COPY build_files/rootfs/usr/share/ /usr/share/
 ## change the kernel to cachyOS kernel
 RUN --mount=type=bind,from=ccachy-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
+    --mount=type=tmpfs,dst=/run \
     --mount=type=tmpfs,dst=/tmp \
     HOME=/tmp bash /ctx/copr-cachy.sh
 
