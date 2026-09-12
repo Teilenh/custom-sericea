@@ -8,7 +8,6 @@ rm -rf \
     /var/cache/dnf \
     /var/cache/libdnf5 \
     /var/lib/dnf/repos
-    /var/lib/rpm-state
     
 rm -f \
     /var/log/dnf* \
