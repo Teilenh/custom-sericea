@@ -165,16 +165,6 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
-CODECS=(
-  gstreamer1-plugins-base
-  gstreamer1-plugins-good
-  gstreamer1-plugins-bad-free
-  gstreamer1-plugins-bad-freeworld
-  gstreamer1-plugins-ugly
-  gstreamer1-libav
-  mozilla-openh264
-  lame
-)
 dnf5 remove -y "${RM_PACKAGES[@]}" "${BUILD_PACKAGES}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
