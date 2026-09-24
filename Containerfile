@@ -5,14 +5,8 @@ COPY build_files/build.sh /build.sh
 FROM scratch AS systemd-script
 COPY build_files/systemd-service.sh /systemd-service.sh
 
-FROM scratch AS ccachy-script
-COPY build_files/copr-cachy.sh /copr-cachy.sh
-
 FROM scratch AS finalize-script
 COPY build_files/finalize.sh /finalize.sh
-
-FROM scratch AS install-kernel
-COPY build_files/install-kernel.sh /install-kernel.sh
 
 # Base Image
 FROM quay.io/fedora/fedora-sway-atomic:latest
@@ -72,24 +66,12 @@ COPY build_files/rootfs/usr/libexec/ /usr/libexec/
 
 # Apparence, thèmes et fonds d’écran plus changeants
 COPY build_files/rootfs/usr/share/ /usr/share/
-## change the kernel to cachyOS kernel
-RUN --mount=type=bind,from=ccachy-script,source=/,target=/ctx \
-    --mount=type=cache,dst=/var/cache \
-    --mount=type=tmpfs,dst=/run \
-    --mount=type=tmpfs,dst=/tmp \
-    HOME=/tmp bash /ctx/copr-cachy.sh
 
 ## Activate systemd services + cleanup
 RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
     HOME=/tmp bash /ctx/systemd-service.sh
-
-RUN --mount=type=cache,dst=/var/cache \
-    --mount=type=cache,dst=/var/log \
-    --mount=type=bind,from=install-kernel,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \
-    bash /ctx/install-kernel.sh
 
 RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
