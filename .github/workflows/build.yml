@@ -8,7 +8,7 @@ on:
     - cron: '05 10 * * *'  # 10:05am UTC everyday
   push:
     branches:
-      - unstable
+      - main
     paths-ignore:
       - '**/README.md'
   workflow_dispatch:
@@ -19,7 +19,7 @@ env:
   IMAGE_LOGO_URL: "https://avatars.githubusercontent.com/u/120078124?s=200&v=4"  # Put your own image here for a fancy profile on https://artifacthub.io/!
   IMAGE_NAME: "${{ github.event.repository.name }}"  # output image name, usually same as repo name
   IMAGE_REGISTRY: "ghcr.io/${{ github.repository_owner }}"  # do not edit
-  DEFAULT_TAG: "unstable"
+  DEFAULT_TAG: "latest"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref || github.run_id }}
@@ -136,7 +136,7 @@ jobs:
           
       - name: Build Image
         id: build_image
-        uses: redhat-actions/buildah-build@3a51aade9afa17e5c78256bcbe2e1ee08c7b995b # v3.0.2
+        uses: redhat-actions/buildah-build@719e3c40d8af9790c23eca13f7daa339f2867034 # v3.1.0
         with:
           containerfiles: |
             ./Containerfile
