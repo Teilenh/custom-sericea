@@ -110,6 +110,7 @@ PACKAGES=(
   google-noto-color-emoji-fonts 
   google-noto-sans-symbols-2-fonts
   SwayNotificationCenter-zsh-completion
+  mangowm
 )
 GAMING_PACKAGES=(
   vkBasalt.x86_64
