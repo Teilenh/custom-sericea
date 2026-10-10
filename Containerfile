@@ -73,6 +73,14 @@ RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     HOME=/tmp bash /ctx/systemd-service.sh
 
+# Metadata arguments are declared late so they do not invalidate package layers.
+ARG IMAGE_NAME=custom-sericea
+ARG IMAGE_VENDOR=teilenh
+ARG IMAGE_REGISTRY=ghcr.io/teilenh
+ARG IMAGE_BRANCH=main
+ARG IMAGE_TAG=latest
+ARG VERSION_TAG=local
+
 RUN --mount=type=bind,from=finalize-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
