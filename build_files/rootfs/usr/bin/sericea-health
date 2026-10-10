@@ -77,16 +77,25 @@ RAM="$(
 
 item "RAM" "$RAM"
 
-if zramctl --noheadings 2>/dev/null | grep -q .; then
-    ZRAM_SIZE="$(
-        zramctl --noheadings --output DISKSIZE 2>/dev/null |
-        head -1 |
-        xargs
-    )"
-
-    item "ZRAM" "${ZRAM_SIZE:-unknown}"
+if SWAPS=$(swapon --show --noheadings --bytes --output NAME,SIZE 2>/dev/null); then
+    ZRAM_SIZE=$(awk '$1 ~ /\/zram[0-9]+$/ { total += $2; count++ } END { if (count) printf "%.0f", total }' <<< "$SWAPS")
+    if [[ -n "$ZRAM_SIZE" ]]; then
+        item "ZRAM swap" "$(numfmt --to=iec "$ZRAM_SIZE") active"
+    else
+        warn "No active ZRAM swap"
+    fi
 else
-    fail "ZRAM inactive"
+    warn "Unable to query active swap"
+fi
+
+if [[ -r /sys/module/zswap/parameters/enabled ]]; then
+    read -r ZSWAP_ENABLED < /sys/module/zswap/parameters/enabled
+    case "$ZSWAP_ENABLED" in
+        Y|y|1) item "Zswap" "enabled" ;;
+        *) item "Zswap" "disabled (optional)" ;;
+    esac
+else
+    item "Zswap" "unavailable (optional)"
 fi
 
 end_section
@@ -110,9 +119,10 @@ end_section
 
 section "SYSTEMD"
 
-FAILED_OUTPUT="$(
-    systemctl --failed --no-legend --plain 2>/dev/null || true
-)"
+SYSTEMD_READ_OK=true
+if ! FAILED_OUTPUT=$(systemctl --failed --no-legend --plain 2>/dev/null); then
+    SYSTEMD_READ_OK=false
+fi
 
 FAILED_COUNT="$(
     printf '%s\n' "$FAILED_OUTPUT" |
@@ -120,7 +130,9 @@ FAILED_COUNT="$(
     wc -l
 )"
 
-if (( FAILED_COUNT == 0 )); then
+if [[ "$SYSTEMD_READ_OK" == false ]]; then
+    warn "Unable to query systemd units"
+elif (( FAILED_COUNT == 0 )); then
     ok "No failed units"
 else
     fail "$FAILED_COUNT failed unit(s)"
