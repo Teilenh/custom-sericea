@@ -15,8 +15,8 @@ if [[ ! -f "$STEAM_CONFIG" ]] ||
 
     threads=$(( $(nproc) - 2 ))
 
-    if (( threads > 16 )); then
-        threads=16
+    if (( threads > 12 )); then
+        threads=12
     elif (( threads < 1 )); then
         threads=1
     fi
