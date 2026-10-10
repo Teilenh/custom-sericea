@@ -1,4 +1,9 @@
-* {
-    font: "Geist 12";
-    font-mono: "Geist Mono 12";
+/* Copyright (C) 2020-2023 Aditya Shakya <adi1090x@gmail.com> */
+
+/* Text Font */
+
+/* 
+{
+    font: "Raleway Medium 11";
 }
+*/
