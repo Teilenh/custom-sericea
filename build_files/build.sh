@@ -118,13 +118,13 @@ PACKAGES=(
 GAMING_PACKAGES=(
   vkBasalt.x86_64
   vkBasalt.i686
-  libFAudio.x86_64
-  libFAudio.i686
+  #libFAudio.x86_64
+  #libFAudio.i686
   lm_sensors
   kernel-tools
   amdsmi
   libinput-utils
-  vulkan-low-latency-layer
+  #vulkan-low-latency-layer
 )
 SCHED_EXT=(
   scx-scheds
@@ -164,7 +164,6 @@ RM_PACKAGES=(
   qemu-guest-agent
   virtualbox-guest-additions
   ModemManager
-  tuned
   xarchiver
   google-noto-emoji-fonts
   gdouros-symbola-fonts
@@ -173,39 +172,43 @@ dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}" \
-  "${GAMING_PACKAGES[@]}"  "${SCHED_EXT[@]}"
-rpm -q gamemode jq pamixer
+  "${GAMING_PACKAGES[@]}"
+  #   "${SCHED_EXT[@]}"
 #  "$LACT"
-# commented because no need actually, reduce build time, I uncomment these when I need it
+# commented because no need actually, so commented to reduce build time, I uncomment these when I need it
 # dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
-dnf5 swap -y \
-  --from-repo=terra-mesa \
-  mesa-filesystem \
-  mesa-filesystem
 
-dnf5 install -y \
-  --enable-repo=terra-mesa \
-  --setopt=install_weak_deps=False \
-  "${MESA_TERRA_PACKAGES[@]}"
-  
-dnf5 versionlock add \
-  mesa-filesystem \
-  mesa-dri-drivers \
-  mesa-libEGL \
-  mesa-libGL \
-  mesa-libgbm \
-  mesa-vulkan-drivers
-  
-echo "Mesa packages selected for the image:"
-rpm -q \
-  --queryformat '%{NAME}.%{ARCH} %{EPOCHNUM}:%{VERSION}-%{RELEASE} | %{VENDOR}\n' \
-  "${MESA_TERRA_PACKAGES[@]}"
-echo "Mesa versionlocks:"
-dnf5 versionlock list
+## comment temporaire
+#dnf5 swap -y \
+#  --from-repo=terra-mesa \
+#  mesa-filesystem \
+#  mesa-filesystem
+#
+#dnf5 install -y \
+#  --enable-repo=terra-mesa \
+#  --setopt=install_weak_deps=False \
+#  "${MESA_TERRA_PACKAGES[@]}"
+#  
+#dnf5 versionlock add \
+#  mesa-filesystem \
+#  mesa-dri-drivers \
+#  mesa-libEGL \
+#  mesa-libGL \
+#  mesa-libgbm \
+#  mesa-vulkan-drivers
+#  
+#echo "Mesa packages selected for the image:"
+#rpm -q \
+#  --queryformat '%{NAME}.%{ARCH} %{EPOCHNUM}:%{VERSION}-%{RELEASE} | %{VENDOR}\n' \
+#  "${MESA_TERRA_PACKAGES[@]}"
+#echo "Mesa versionlocks:"
+#dnf5 versionlock list
 
 # FLATHUB -- but now with a .sh and a service
 # flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 # flatpak -y install flathub md.obsidian.Obsidian com.ranfdev.DistroShelf io.github.kolunmi.Bazaar
+
+
 # Use a COPR Example:
 # dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
 # Disable COPRs so they don't end up enabled on the final image:
@@ -215,12 +218,3 @@ dnf5 versionlock list
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi
 mkdir -p /usr/share/icons
 cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
-
-### CONFIGURE DEFAULT SHELL TO ZSH
-#if [ -f /etc/default/useradd ]; then
-#    sed -i 's|SHELL=/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
-#    sed -i 's|SHELL=/usr/bin/bash|SHELL=/bin/zsh|g' /etc/default/useradd
-#else
-#    mkdir -p /etc/default
-#    echo "SHELL=/bin/zsh" > /etc/default/useradd
-#fi
