@@ -169,7 +169,7 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
-dnf5 remove -y "${RM_PACKAGES[@]}" "${BUILD_PACKAGES[@]}"
+dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}" \
@@ -202,8 +202,6 @@ rpm -q \
   "${MESA_TERRA_PACKAGES[@]}"
 echo "Mesa versionlocks:"
 dnf5 versionlock list
-# for a lightweight image
-#dnf5 remove -y "${BUILD_PACKAGES[@]}"
 
 # FLATHUB -- but now with a .sh and a service
 # flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
