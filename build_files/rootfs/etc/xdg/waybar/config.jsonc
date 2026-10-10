@@ -119,6 +119,8 @@
       "default": [" ", "  ", "  "],
     },
     "on-click": "pavucontrol",
+    "on-scroll-up": "pamixer --increase 5",
+    "on-scroll-down": "pamixer --decrease 5",
   },
   "custom/sep": {
     "format": "|",
@@ -160,7 +162,7 @@
     "format": "{temperatureC}°C <span size='10000'><b></b></span>",
   },
   "network": {
-    "interface": "eth",
+    "interface": "enp16s0",
     "tooltip": true,
     "format": "{ifname}",
     "format-wifi": "{essid} ({signalStrength}%) <span size='11000'><b></b></span>",
@@ -172,7 +174,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
     "on-click": "nm-connection-editor", // clic gauche → éditeur NM
-    "on-click-right": "nmtui", // clic droit → terminal + nmtui
+    "on-click-right": "kitty -e nmtui", // clic droit → terminal + nmtui
   },
   "pulseaudio#source": {
     "format": "{format_source}",
@@ -200,12 +202,12 @@
   "custom/logout": {
     "format": " <span size='10000'><b> 󰗼 </b></span> ",
     "tooltip": false,
-    "on-click": "loginctl logout",
+    "on-click": "swaymsg exit",
   },
   "custom/lock": {
     "format": " <span size='10000'><b> 󰍁 </b></span>",
     "tooltip": false,
-    "on-click": "swaylock -i /usr/share/sway/wall45.png",
+    "on-click": "sway-lock",
   },
   "custom/reboot": {
     "format": " <span size='11000'><b> 󰜉 </b></span> ",
@@ -217,4 +219,4 @@
     "tooltip": false,
     "on-click": "systemctl poweroff",
   },
-},
+}
