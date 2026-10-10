@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+# The callback starts only after Wayfreeze has displayed the frozen outputs.
+if [[ ${1:-} == --capture ]]; then
+    freeze_pid=$2
+    trap 'kill "$freeze_pid" 2>/dev/null || true' EXIT
+    # Escape cancels without touching the existing clipboard.
+    if ! geometry=$(slurp -d); then
+        exit 0
+    fi
+    grim -g "$geometry" - | wl-copy --type image/png
+    exit 0
+fi
+
+# exec preserves this PID, so the callback terminates only its own freezer.
+exec wayfreeze --after-freeze-cmd "sway-screenshot --capture $$"

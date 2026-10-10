@@ -168,6 +168,8 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
+# Required by frozen screenshots; fail the build if a dependency is unavailable.
+dnf5 install -y --setopt=install_weak_deps=False grim slurp wl-clipboard libxkbcommon
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
@@ -213,6 +215,28 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
 # dnf5 copr enable scottames/vicinae bieszczaders/kernel-cachyos-addons
 # Disable COPRs so they don't end up enabled on the final image:
 # dnf5 -y copr disabled bieszczaders/kernel-cachyos-addons scottames/vicinae
+
+### FROZEN SCREENSHOTS
+# Compile Wayfreeze with a pinned source revision and its dependency lockfile.
+# Only remove explicitly added build tools, without autoremove.
+WAYFREEZE_BUILD_TOOLS=(cargo rust gcc libxkbcommon-devel)
+WAYFREEZE_ADDED_TOOLS=()
+for package in "${WAYFREEZE_BUILD_TOOLS[@]}"; do
+    if ! rpm -q "$package" >/dev/null 2>&1; then
+        WAYFREEZE_ADDED_TOOLS+=("$package")
+    fi
+done
+dnf5 install -y --setopt=install_weak_deps=False "${WAYFREEZE_BUILD_TOOLS[@]}" curl tar
+WAYFREEZE_DIR=$(mktemp -d /tmp/wayfreeze.XXXXXX)
+curl -fsSL https://github.com/Jappie3/wayfreeze/archive/59ac913ebb71920992c52dc1002535b733994397.tar.gz \
+    | tar -xz --strip-components=1 -C "$WAYFREEZE_DIR"
+CARGO_HOME="$WAYFREEZE_DIR/cargo-home" cargo build \
+    --manifest-path "$WAYFREEZE_DIR/Cargo.toml" --release --locked
+install -m 0755 "$WAYFREEZE_DIR/target/release/wayfreeze" /usr/bin/wayfreeze
+rm -rf -- "$WAYFREEZE_DIR"
+if (( ${#WAYFREEZE_ADDED_TOOLS[@]} )); then
+    dnf5 remove -y --no-autoremove "${WAYFREEZE_ADDED_TOOLS[@]}"
+fi
 
 ### ICON THEME ARASHI
 git clone --depth=1 https://github.com/0hStormy/Arashi /tmp/Arashi

@@ -44,24 +44,22 @@ printf "${DIM}──────────────────────
 
 section "IMAGE"
 
-BOOTED_IMAGE="$(
-    rpm-ostree status 2>/dev/null |
-    awk '
-        /●/ {
-            line=$0
-            sub(/^.*ostree-/, "ostree-", line)
-            print line
-            exit
-        }
-    '
-)"
-
-# Strip rpm-ostree transport prefix for readability.
-BOOTED_IMAGE="${BOOTED_IMAGE#ostree-unverified-registry:}"
-BOOTED_IMAGE="${BOOTED_IMAGE#ostree-image-signed:}"
-BOOTED_IMAGE="${BOOTED_IMAGE#ostree-unverified-image:}"
-
-item "Booted image" "${BOOTED_IMAGE:-unknown}"
+if BOOTC_STATUS=$(bootc status --json 2>/dev/null); then
+    if IMAGE_FIELDS=$(jq -er '
+        .status.booted.image | select(. != null) |
+        [.image.image, (.version // "unknown"), (.imageDigest // "unknown")] |
+        .[] | select(type == "string")
+    ' <<< "$BOOTC_STATUS" 2>/dev/null); then
+        mapfile -t IMAGE_VALUES <<< "$IMAGE_FIELDS"
+        item "Booted image" "${IMAGE_VALUES[0]:-unknown}"
+        item "Version" "${IMAGE_VALUES[1]:-unknown}"
+        item "Digest" "${IMAGE_VALUES[2]:-unknown}"
+    else
+        warn "Unable to read booted image from bootc status"
+    fi
+else
+    warn "Unable to query bootc status (run with sudo)"
+fi
 
 end_section
 
@@ -77,7 +75,7 @@ RAM="$(
 
 item "RAM" "$RAM"
 
-if SWAPS=$(swapon --show --noheadings --bytes --output NAME,SIZE 2>/dev/null); then
+if SWAPS=$(swapon --show --noheadings --raw --bytes --output NAME,SIZE 2>/dev/null); then
     ZRAM_SIZE=$(awk '$1 ~ /\/zram[0-9]+$/ { total += $2; count++ } END { if (count) printf "%.0f", total }' <<< "$SWAPS")
     if [[ -n "$ZRAM_SIZE" ]]; then
         item "ZRAM swap" "$(numfmt --to=iec "$ZRAM_SIZE") active"
@@ -106,7 +104,8 @@ end_section
 FS_USED="$(df -Ph /var | awk 'NR==2 { print $5 }')"
 FS_FREE="$(df -Ph /var | awk 'NR==2 { print $4 }')"
 
-HOME_SIZE="$(du -sh "$HOME" 2>/dev/null | awk '{print $1}')"
+# Follow Atomic's /home -> /var/home symlink, including when run via sudo.
+HOME_SIZE="$(du -sh /home/ 2>/dev/null | awk '{print $1}')"
 VAR_SIZE="$(du -sh --exclude=home /var 2>/dev/null | awk '{print $1}')"
 
 printf "\n${BOLD}${CYAN}╭─ STORAGE - %s used • %s free${RESET}\n" "$FS_USED" "$FS_FREE"

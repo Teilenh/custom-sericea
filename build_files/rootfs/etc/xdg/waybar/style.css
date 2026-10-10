@@ -115,7 +115,27 @@ window#waybar.empty #window {
 #group-power {
   color: #B65E67;
   background-color: #1b1e25;
-  margin: 0.5rem 0.25rem;
+  margin: 0.4rem 0.45rem;
+  padding: 0;
+}
+
+#custom-shutdown,
+#custom-reboot,
+#custom-lock,
+#custom-logout {
+  font-family: "JetBrainsMono Nerd Font", "Symbols Nerd Font Mono", monospace;
+  font-size: 14px;
+  min-width: 24px;
+  padding: 0 6px;
+  margin: 0;
+}
+
+#pulseaudio.source {
+  color: #8FBCBB;
+}
+
+#pulseaudio.source.source-muted {
+  color: #9F6B80;
 }
 
 tooltip {
