@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+image=/usr/share/sway/wall1.jpg
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
+if [[ -r "$cache" ]]; then
+    image=$cache
+fi
+# -f returns only after the lock has been established, before suspension.
+exec swaylock -f -i "$image" "$@"

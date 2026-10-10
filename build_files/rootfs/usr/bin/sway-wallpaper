@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Share a persistent copy between the desktop and lock screen.
+cache="${XDG_CACHE_HOME:-$HOME/.cache}/wallpaper"
+image=${1:-$cache}
+if [[ $# == 0 && ! -r "$image" ]]; then
+    image=/usr/share/sway/wall1.jpg
+fi
+test -r "$image"
+mkdir -p -- "$(dirname -- "$cache")"
+if [[ ! "$image" -ef "$cache" ]]; then
+    cp -- "$image" "$cache"
+fi
+command=$(jq -rn --arg image "$cache" '"output * bg " + ($image | tojson) + " fill"')
+result=$(swaymsg -r "$command")
+jq -e 'all(.[]; .success == true)' <<< "$result" >/dev/null
