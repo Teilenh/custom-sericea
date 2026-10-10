@@ -1,0 +1,38 @@
+#!/usr/bin/bash
+set -euo pipefail
+
+# Respect an existing Steam installation without creating its compatibility symlink.
+STEAM_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/Steam"
+if [[ -d "$HOME/.steam/steam" ]]; then
+    STEAM_DIR="$HOME/.steam/steam"
+fi
+STEAM_CONFIG="$STEAM_DIR/steam_dev.cfg"
+SHADER_SETTING="unShaderBackgroundProcessingThreads"
+
+# Accélérer le précalcul des shaders : CPU logiques - 2, entre 1 et 16.
+if [[ ! -f "$STEAM_CONFIG" ]] ||
+   ! grep -Eq "^[[:space:]]*${SHADER_SETTING}[[:space:]]+[0-9]+([[:space:]]|$)" "$STEAM_CONFIG"; then
+
+    threads=$(( $(nproc) - 2 ))
+
+    if (( threads > 16 )); then
+        threads=16
+    elif (( threads < 1 )); then
+        threads=1
+    fi
+
+    if ! mkdir -p -- "$STEAM_DIR" ||
+       ! printf '\n%s %d\n' "$SHADER_SETTING" "$threads" >> "$STEAM_CONFIG"; then
+        printf 'steam-custom: unable to configure shader threads; launching Steam anyway.\n' >&2
+    fi
+fi
+
+# Compatibilité Steam Input sous Wayland, uniquement si Extest est présent.
+EXTEST="/usr/lib/extest/libextest.so"
+
+if [[ "${XDG_SESSION_TYPE:-}" == "wayland" && -r "$EXTEST" ]]; then
+    exec env LD_PRELOAD="$EXTEST${LD_PRELOAD:+:$LD_PRELOAD}" \
+        /usr/bin/steam "$@"
+else
+    exec /usr/bin/steam "$@"
+fi
