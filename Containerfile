@@ -67,7 +67,7 @@ COPY build_files/rootfs/usr/libexec/ /usr/libexec/
 # Apparence, thèmes et fonds d’écran plus changeants
 COPY build_files/rootfs/usr/share/ /usr/share/
 
-## Activate systemd services + cleanup
+## Activate systemd services
 RUN --mount=type=bind,from=systemd-script,source=/,target=/ctx \
     --mount=type=cache,dst=/var/cache \
     --mount=type=tmpfs,dst=/tmp \
