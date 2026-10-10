@@ -77,7 +77,10 @@ PACKAGES=(
   vs-codium
   distrobox
   wlr-randr
-  tracroute
+  traceroute
+  gamemode
+  jq
+  pamixer
   cabextract
   xfce-polkit
   file-roller
@@ -166,11 +169,12 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
-dnf5 remove -y "${RM_PACKAGES[@]}" "${BUILD_PACKAGES}"
+dnf5 remove -y "${RM_PACKAGES[@]}" "${BUILD_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
   "${CODECS[@]}" \
   "${GAMING_PACKAGES[@]}"  "${SCHED_EXT[@]}"
+rpm -q gamemode jq pamixer
 #  "$LACT"
 # commented because no need actually, reduce build time, I uncomment these when I need it
 # dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
@@ -222,5 +226,3 @@ cp -r /tmp/Arashi /usr/share/icons/Arashi && rm -rf /tmp/Arashi
 #    mkdir -p /etc/default
 #    echo "SHELL=/bin/zsh" > /etc/default/useradd
 #fi
-
-
