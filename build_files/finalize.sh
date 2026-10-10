@@ -15,11 +15,6 @@ rm -f \
     /var/log/dnf* \
     /var/log/hawkey.log
 
-# Résidus réellement créés pendant le build.
-rm -rf \
-    /run/dnf \
-    /run/selinux-policy
-    
 # /tmp est déjà monté en tmpfs durant ce RUN,
 # mais garder ça ne pose pas problème.
 find /tmp -mindepth 1 -delete
