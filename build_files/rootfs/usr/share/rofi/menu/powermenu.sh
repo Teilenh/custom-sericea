@@ -15,8 +15,8 @@ get_flag() {
     grep -E "^$2" "$1" 2>/dev/null | cut -d'=' -f2 | tr -d ' '
 }
 
-USE_ICON=$(get_flag "$RASI" "USE_ICON")
-CNF_ICON=$(get_flag "$CNFR" "USE_ICON")
+USE_ICON=$(get_flag "$DIR/$RASI" "USE_ICON")
+CNF_ICON=$(get_flag "$DIR/$CNFR" "USE_ICON")
 
 prompt="$(hostname) ($(whoami))"
 mesg="Uptime : $(uptime -p)"
@@ -73,7 +73,7 @@ confirm_run() {
 # ==============================
 
 do_lock() {
-    swaylock
+    sway-lock
 }
 
 do_logout() {
@@ -84,8 +84,7 @@ do_suspend() {
     confirm_run sh -c "
         mpc -q pause 2>/dev/null
         pamixer --mute 2>/dev/null
-        swaylock
-        systemctl suspend
+        sway-lock && systemctl suspend
     "
 }
 
