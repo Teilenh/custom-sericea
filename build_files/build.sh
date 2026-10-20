@@ -79,6 +79,7 @@ PACKAGES=(
   wlr-randr
   traceroute
   gamemode
+  wl-mirror
   jq
   pamixer
   cabextract
