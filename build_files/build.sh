@@ -179,7 +179,7 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   #   "${SCHED_EXT[@]}"
 #  "$LACT"
 # commented because no need actually, so commented to reduce build time, I uncomment these when I need it
-# dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 ## comment temporaire
 #dnf5 swap -y \
