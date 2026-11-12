@@ -13,8 +13,6 @@ dnf5 install -y \
 dnf5 config-manager setopt terra-mesa.enabled=false
 
 
-curl -fsSl https://pkg.cloudflareclient.com/cloudflare-warp-ascii.repo | sudo tee /etc/yum.repos.d/cloudflare-warp.repo
-
 #VS-codium 
 tee -a /etc/yum.repos.d/vscodium.repo << 'EOF'
 [gitlab.com_paulcarroty_vscodium_repo]
@@ -115,6 +113,11 @@ PACKAGES=(
   google-noto-sans-symbols-2-fonts
   SwayNotificationCenter-zsh-completion
   mangowm
+  openssl3-libs
+  grim
+  slurp
+  wl-clipboard
+  libxkbcommon
 )
 GAMING_PACKAGES=(
   vkBasalt.x86_64
@@ -169,8 +172,6 @@ RM_PACKAGES=(
   google-noto-emoji-fonts
   gdouros-symbola-fonts
 )
-# Required by frozen screenshots; fail the build if a dependency is unavailable.
-dnf5 install -y --setopt=install_weak_deps=False grim slurp wl-clipboard libxkbcommon
 dnf5 remove -y "${RM_PACKAGES[@]}"
 dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   "${PACKAGES[@]}" \
