@@ -180,33 +180,33 @@ dnf5 install --setopt=install_weak_deps=False --skip-unavailable -y \
   #   "${SCHED_EXT[@]}"
 #  "$LACT"
 # commented because no need actually, so commented to reduce build time, I uncomment these when I need it
-dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
+# dnf5 install --setopt=install_weak_deps=False --setopt=tsflags=nodocs -y "${BUILD_PACKAGES[@]}"
 
 ## comment temporaire
-#dnf5 swap -y \
-#  --from-repo=terra-mesa \
-#  mesa-filesystem \
-#  mesa-filesystem
+dnf5 swap -y \
+  --from-repo=terra-mesa \
+  mesa-filesystem \
+  mesa-filesystem
 #
-#dnf5 install -y \
-#  --enable-repo=terra-mesa \
-#  --setopt=install_weak_deps=False \
-#  "${MESA_TERRA_PACKAGES[@]}"
+dnf5 install -y \
+  --enable-repo=terra-mesa \
+  --setopt=install_weak_deps=False \
+  "${MESA_TERRA_PACKAGES[@]}"
 #  
-#dnf5 versionlock add \
-#  mesa-filesystem \
-#  mesa-dri-drivers \
-#  mesa-libEGL \
-#  mesa-libGL \
-#  mesa-libgbm \
-#  mesa-vulkan-drivers
+dnf5 versionlock add \
+  mesa-filesystem \
+  mesa-dri-drivers \
+  mesa-libEGL \
+  mesa-libGL \
+  mesa-libgbm \
+  mesa-vulkan-drivers
 #  
-#echo "Mesa packages selected for the image:"
-#rpm -q \
-#  --queryformat '%{NAME}.%{ARCH} %{EPOCHNUM}:%{VERSION}-%{RELEASE} | %{VENDOR}\n' \
-#  "${MESA_TERRA_PACKAGES[@]}"
-#echo "Mesa versionlocks:"
-#dnf5 versionlock list
+echo "Mesa packages selected for the image:"
+rpm -q \
+  --queryformat '%{NAME}.%{ARCH} %{EPOCHNUM}:%{VERSION}-%{RELEASE} | %{VENDOR}\n' \
+  "${MESA_TERRA_PACKAGES[@]}"
+echo "Mesa versionlocks:"
+dnf5 versionlock list
 
 # FLATHUB -- but now with a .sh and a service
 # flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
